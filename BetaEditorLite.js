@@ -66,7 +66,7 @@
     addGlobalStyle('.l-comment-text {margin-top: 0px !important;}'); //скукоживание истории комментариев
 
     addGlobalStyle('.l-segments__row.l-segments__row-selected {background-color: #bfdae0;}'); //цвет фона текущего сегмента в редакторе
-    //addGlobalStyle('.l-segments__row.l-segments__row-selected {background-color: #CCFFCC !important;}'); //цвет фона текущего сегмента в редакторе
+    //addGlobalStyle('.l-segments__row.l-segments__row-selected {background-color: #CCFFCC !important;}'); //цвет фона текущего сегмента в редакторе; можно #BFDAE0
     //addGlobalStyle('.l-segments__row:nth-child(2n) {background-color: #F0F0F0 !important;}'); //цвет фона чётных сегментов в редакторе
     //addGlobalStyle('.l-segments__row:nth-child(odd) {background-color: #FFFFFF !important;}'); //цвет фона нечётных сегментов в редакторе
     //addGlobalStyle('.l-segments__row.l-segments__row-selected:nth-child(odd) {background-color: #CCFFCC !important;}'); //цвет фона текущего сегмента в редакторе
