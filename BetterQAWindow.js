@@ -30,6 +30,8 @@
     addGlobalStyle('.l-corpr__td.l-qa-check-report__document-title {COLOR: #EFEFEF}'); //снижение видимости имён файлов
     addGlobalStyle('.g-link {COLOR: #EFEFEF !important}'); //снижение видимости ссылки для перехода в списке ошибок
     addGlobalStyle('.g-link:visited {COLOR: #AFFFCF !important}'); //снижение видимости ссылки для перехода в списке ошибок
+    
+    addGlobalStyle('.g-link.g-link_upper.g-link_bold {COLOR: #7e64bd !important}'); //цвет ссылок для перехода в списке серверов
 
     addGlobalStyle('div.g-popupbox__panel.g-tabs__panel.g-tabs__panel_clearfix {bottom: 20px; !important;}'); //отступ для форматирования
     addGlobalStyle('div.g-popupbox__panel.g-tabs__panel.l-project__executive-tab {min-height: 150px !important; height: 150px !important; display: block !important;}'); //отображение разрешения массового подтверждения сразу, чтоб не переключаться между вкладками
