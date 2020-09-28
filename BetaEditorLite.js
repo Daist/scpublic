@@ -13,12 +13,12 @@
     //Последняя версия - от 24.09.2020
 
     //временное отключение сжатия строк, пока не починят зависание
-    addGlobalStyle('.l-segments__cell.l-segments__cell-number {padding: 5px 8px 5px 8px;}'); //поля в нумерации - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
-    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-source-cell {padding: 5px 8px 5px 8px;}'); //поля в оригинале - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
+    addGlobalStyle('.l-segments__cell.l-segments__cell-number {padding: 5px 8px 5px 8px !important;}'); //поля в нумерации - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
+    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-source-cell {padding: 5px 8px 5px 8px !important;}'); //поля в оригинале - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
     addGlobalStyle('.l-segments__cell__editor.source {padding: 5px 8px 5px 8px !important;}'); //поля в оригинале - дополнительное
-    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 5px 12px 5px 12px;}'); //поля в переводе - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
-    addGlobalStyle('.l-segments__cell__editor.target {padding: 5px 12px 5px 12px;}'); //поля в переводе - дополнительное
-    addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 5px 0px 5px 0px;}'); //поля в сегменте со значками ошибок - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
+    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 5px 12px 5px 12px !important;}'); //поля в переводе - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
+    addGlobalStyle('.l-segments__cell__editor.target {padding: 5px 12px 5px 12px !important;}'); //поля в переводе - дополнительное
+    addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 5px 0px 5px 0px !important;}'); //поля в сегменте со значками ошибок - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
     //Улучшение читабельности шрифта, а то дюже бледнючий в оригинале
