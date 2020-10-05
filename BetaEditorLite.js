@@ -13,12 +13,14 @@
     //Последняя версия - 0.5.2 от 24.09.2020
 
     //временное отключение сжатия строк, пока не починят зависание
-    addGlobalStyle('.l-segments__cell.l-segments__cell-number {padding: 5px 8px 5px 8px !important;}'); //поля в нумерации - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
-    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-source-cell {padding: 5px 8px 5px 8px !important;}'); //поля в оригинале - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
-    addGlobalStyle('.l-segments__cell__editor.source {padding: 5px 8px 5px 8px !important;}'); //поля в оригинале - дополнительное
-    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 5px 12px 5px 12px !important;}'); //поля в переводе - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
-    addGlobalStyle('.l-segments__cell__editor.target {padding: 5px 12px 5px 12px !important;}'); //поля в переводе - дополнительное
-    addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 5px 0px 5px 0px !important;}'); //поля в сегменте со значками ошибок - сжаты с 11рх до 5рх для компенсации сбоя загрузки при большом числе однострочных сегментов
+    addGlobalStyle('.l-segments__cell.l-segments__cell-number {padding: 0px 8px !important;}'); //поля в нумерации
+    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-source-cell {padding: 0px 8px !important;}'); //поля в оригинале
+    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 0px 12px !important;}'); //поля в переводе
+    addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 0px !important;}'); //поля в сегменте со значками ошибок
+    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source {padding: 1px 8px !important;}}'); //поля в оригинале - от 300 до 970px = 1px
+    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.target {padding: 1px 8px !important;}}'); //поля в переводе - -//-
+    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source {padding: 5px 8px !important;}}'); //поля в оригинале - свыше 970px = 5px
+    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.target {padding: 5px 8px !important;}}'); //поля в переводе - -//-
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
     //Улучшение читабельности шрифта, а то дюже бледнючий в оригинале
@@ -64,8 +66,8 @@
     addGlobalStyle('.x-tab {padding: 0px 15px !important}'); //скукоживание высоты заголовков вкладок
     addGlobalStyle('.x-toolbar {padding: 0px 8px !important}'); //скукоживание высоты панелей
     addGlobalStyle('.l-comment-text {margin-top: 0px !important;}'); //скукоживание истории комментариев
-
-    addGlobalStyle('.l-segments__row.l-segments__row-selected {background-color: #bfdae0;}'); //цвет фона текущего сегмента в редакторе
+    
+    addGlobalStyle('@media screen and (min-height: 1300px) {.l-segments__row.l-segments__row-selected {background-color: #bfdae0 !important;}}'); //с большим разрешением приходит большая ответственность
     //addGlobalStyle('.l-segments__row.l-segments__row-selected {background-color: #CCFFCC !important;}'); //цвет фона текущего сегмента в редакторе; можно #BFDAE0
     //addGlobalStyle('.l-segments__row:nth-child(2n) {background-color: #F0F0F0 !important;}'); //цвет фона чётных сегментов в редакторе
     //addGlobalStyle('.l-segments__row:nth-child(odd) {background-color: #FFFFFF !important;}'); //цвет фона нечётных сегментов в редакторе
