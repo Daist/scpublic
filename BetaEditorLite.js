@@ -18,7 +18,7 @@
     addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 0px 12px !important;}'); //поля в переводе
     addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 0px !important;}'); //поля в сегменте со значками ошибок
     addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 1px 8px !important;}}'); //поля в оригинале и переводе - от 300 до 970px = 1px
-    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 5px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px = 5px
+    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 6px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px = 5px
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
     //Улучшение читабельности шрифта, а то дюже бледнючий в оригинале
