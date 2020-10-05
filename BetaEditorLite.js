@@ -17,10 +17,8 @@
     addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-source-cell {padding: 0px 8px !important;}'); //поля в оригинале
     addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 0px 12px !important;}'); //поля в переводе
     addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 0px !important;}'); //поля в сегменте со значками ошибок
-    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source {padding: 1px 8px !important;}}'); //поля в оригинале - от 300 до 970px = 1px
-    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.target {padding: 1px 8px !important;}}'); //поля в переводе - -//-
-    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source {padding: 5px 8px !important;}}'); //поля в оригинале - свыше 970px = 5px
-    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.target {padding: 5px 8px !important;}}'); //поля в переводе - -//-
+    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 1px 8px !important;}}'); //поля в оригинале и переводе - от 300 до 970px = 1px
+    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 5px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px = 5px
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
     //Улучшение читабельности шрифта, а то дюже бледнючий в оригинале
@@ -39,10 +37,7 @@
     addGlobalStyle('.l-toolbar-button.l-icon-btn {width: 100% !important;}'); //раздвинуть контейнер, чтоб показать всю кнопку
     addGlobalStyle('.g-icon.g-icon_join {width: 120px !important; background-color: #CCFFCC !important;}'); //кнопка объединения сегментов побольше и цветная
 
-    addGlobalStyle('.l-cat__number {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - номера
-    addGlobalStyle('.l-cat__source-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - оригинал
-    addGlobalStyle('.l-cat__match {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - %
-    addGlobalStyle('.l-cat__target-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - перевод
+    addGlobalStyle('.l-cat__number, .l-cat__source-text, .l-cat__match, .l-cat__target-text, .l-cat__cell.l-cat-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу
 
     //дополнено после обновления от 14 сентября 2020 г.
     addGlobalStyle('.l-cat__cell.l-cat-text {padding-bottom: 0px !important; padding-top: 0px !important;}'); //CAT - TM & TB - отступы сверху и снизу
@@ -61,8 +56,7 @@
     addGlobalStyle('.progress-legend{min-width: 350px !important;}'); //прогресс в процентах не разваливает строку после увеличения ее длины
     addGlobalStyle('.l-workflow-progress-tip__words-count{min-width: 150px !important; padding-bottom: 0px !important;}'); //прогресс в словах не разваливает строку после увеличения ее длины
 
-    addGlobalStyle('.x-column-header-inner {padding: 0px 12px !important;}'); //скукоживание высоты строки заголовка на вкладке истории изменений
-    addGlobalStyle('.x-grid-cell-inner {padding: 0px 12px !important;}'); //скукоживание высоты строки данных на вкладке истории изменений //после патча 08.11.18 также смещает стрелку повторов вниз почти за пределы видимости
+    addGlobalStyle('.x-column-header-inner, .x-grid-cell-inner {padding: 0px 12px !important;}'); //скукоживание высоты строк заголовка и данных на вкладке истории изменений
     addGlobalStyle('.x-tab {padding: 0px 15px !important}'); //скукоживание высоты заголовков вкладок
     addGlobalStyle('.x-toolbar {padding: 0px 8px !important}'); //скукоживание высоты панелей
     addGlobalStyle('.l-comment-text {margin-top: 0px !important;}'); //скукоживание истории комментариев
