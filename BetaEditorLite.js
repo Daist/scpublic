@@ -12,12 +12,11 @@
     //addGlobalStyle(''); //шаблон пустой строки на будущее
     //Последняя версия - от 06.10.2020
 
-    //поля в нумерации, оригинале, переводе, значках ошибок и текущей задачи
-    addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info {padding: 0px 8px !important;}');
+    //поля
+    addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 8px !important;}');
 
-    //по высоте окна
-    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 8px !important;}}'); //поля в оригинале и переводе - от 300 до 970px = 0px
-    addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 8px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px и до упора 8px, чтоб не висли однострочные сегменты
+    //предохранитель по высоте окна
+    addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 8px !important; min-height: 36px !important;}}'); //мин. высота строки при высоте окна >850px = 36px
 
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
