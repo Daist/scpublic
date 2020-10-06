@@ -10,15 +10,15 @@
     head.appendChild(style);
 }
     //addGlobalStyle(''); //шаблон пустой строки на будущее
-    //Последняя версия - 0.5.2 от 24.09.2020
+    //Последняя версия - от 06.10.2020
 
-    //временное отключение сжатия строк, пока не починят зависание
-    addGlobalStyle('.l-segments__cell.l-segments__cell-number {padding: 0px 8px !important;}'); //поля в нумерации
-    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-source-cell {padding: 0px 8px !important;}'); //поля в оригинале
-    addGlobalStyle('.l-segments__cell.l-segments__cell-editor.js-target-cell {padding: 0px 12px !important;}'); //поля в переводе
-    addGlobalStyle('.l-segments__cell.l-segments__cell-info {padding: 0px !important;}'); //поля в сегменте со значками ошибок
-    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 1px 8px !important;}}'); //поля в оригинале и переводе - от 300 до 970px = 1px
-    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 6px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px = 5px
+    //поля в нумерации, оригинале, переводе, значках ошибок и текущей задачи
+    addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info {padding: 0px 8px !important;}');
+
+    //по высоте окна
+    addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 8px !important;}}'); //поля в оригинале и переводе - от 300 до 970px = 0px
+    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 8px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px и до упора 8px, чтоб не висли однострочные сегменты
+
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
     //Улучшение читабельности шрифта, а то дюже бледнючий в оригинале
@@ -38,9 +38,6 @@
     addGlobalStyle('.g-icon.g-icon_join {width: 120px !important; background-color: #CCFFCC !important;}'); //кнопка объединения сегментов побольше и цветная
 
     addGlobalStyle('.l-cat__number, .l-cat__source-text, .l-cat__match, .l-cat__target-text, .l-cat__cell.l-cat-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу
-
-    //дополнено после обновления от 14 сентября 2020 г.
-    addGlobalStyle('.l-cat__cell.l-cat-text {padding-bottom: 0px !important; padding-top: 0px !important;}'); //CAT - TM & TB - отступы сверху и снизу
     addGlobalStyle('.l-cat-row {min-height: 20px !important}'); //CAT - TM & TB - высота строки
     addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - номера - постоянная ширина
 
