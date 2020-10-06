@@ -17,7 +17,7 @@
 
     //по высоте окна
     addGlobalStyle('@media screen and (min-height: 300px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 8px !important;}}'); //поля в оригинале и переводе - от 300 до 970px = 0px
-    addGlobalStyle('@media screen and (min-height: 970px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 8px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px и до упора 8px, чтоб не висли однострочные сегменты
+    addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 8px 8px !important;}}'); //поля в оригинале и переводе - свыше 970px и до упора 8px, чтоб не висли однострочные сегменты
 
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //размер шрифта и межстрочный интервал; шрифт - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
