@@ -2,10 +2,6 @@
 (function() {
     'use strict';
 
-    //$(document).ready(function() { //When document has loaded
-    //    $('<style type="text/css">tr.l-corpr__trhover.l-qa-check-goSegment.clickable + tr {display: table-row!important;}</style>').appendTo($("head")); // автораскрытие всех строк в категории
-    //});
-
     function addGlobalStyle(css) {
     var head, style;
     head = document.getElementsByTagName('head')[0];
@@ -16,36 +12,32 @@
     head.appendChild(style);
 }
 
-    addGlobalStyle('.g-menubox__dropbox{max-height:95vh !important;}'); //список аккаунтов в окошке без прокрутки
-    addGlobalStyle('.g-drpdwn__list.g-drpdwn__list-multiselect {max-height: 300px !important;}'); //список для фильтрации заказов без прокрутки
+    addGlobalStyle('.g-menubox__dropbox{max-height:95vh !important;}'); //accounts list, no-scroll window
+    addGlobalStyle('.g-drpdwn__list.g-drpdwn__list-multiselect {max-height: 300px !important;}'); //list for order filtering, no-scroll
 
-    addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__client-vendor-td {width: 130px !important;}'); //ширина столбца с названием клиента
-    addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__projname-th {width: 330px !important;}'); //ширина столбца с названием проекта
-    addGlobalStyle('.l-corpr__th.l-project__td.l-project__td_progress {width: 120px !important;}'); //ширина столбца с прогрессом
-
-    //с мая 2019
-    addGlobalStyle('.g-popupbox_size_xl {height:75vh !important; width: 75vw !important;}'); //размер окна для проверки
-    addGlobalStyle('.g-popupbox.g-popupbox_size_xl.g-popupbox_content_flexable {max-height:75vh !important;}'); //размер окна для проверки
-
-    addGlobalStyle('.l-corpr__td.l-qa-check-report__document-title {COLOR: #EFEFEF}'); //снижение видимости имён файлов
-    addGlobalStyle('.g-link {COLOR: #EFEFEF !important}'); //снижение видимости ссылки для перехода в списке ошибок
-    addGlobalStyle('.g-link:visited {COLOR: #AFFFCF !important}'); //снижение видимости ссылки для перехода в списке ошибок
+    addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__client-vendor-td {width: 130px !important;}'); //client width
+    addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__projname-th {width: 330px !important;}'); //project width 
+    addGlobalStyle('.l-corpr__th.l-project__td.l-project__td_progress {width: 120px !important;}'); //progress bar width
     
-    addGlobalStyle('.g-link.g-link_upper.g-link_bold {COLOR: #7e64bd !important}'); //цвет ссылок для перехода в списке серверов
+    addGlobalStyle('.g-popupbox_size_xl {height:75vh !important; width: 75vw !important;}'); //QA window
+    addGlobalStyle('.g-popupbox.g-popupbox_size_xl.g-popupbox_content_flexable {max-height:75vh !important;}'); //QA window
 
-    addGlobalStyle('div.g-popupbox__panel.g-tabs__panel.g-tabs__panel_clearfix {bottom: 20px; !important;}'); //отступ для форматирования
-    addGlobalStyle('div.g-popupbox__panel.g-tabs__panel.l-project__executive-tab {min-height: 150px !important; height: 150px !important; display: block !important;}'); //отображение разрешения массового подтверждения сразу, чтоб не переключаться между вкладками
-    addGlobalStyle('div.g-popupbox__bd {height: 555px !important;}'); //размер окна, чтоб пункты  не наползали на кнопки ок/отмены
+    addGlobalStyle('.l-corpr__td.l-qa-check-report__document-title {COLOR: #EFEFEF !important}'); //grey-out filenames
+    addGlobalStyle('.g-link {COLOR: #EFEFEF !important}'); //grey-out links
+    addGlobalStyle('.g-link:visited {COLOR: #AFFFCF !important}'); //visited links color
+    
+    addGlobalStyle('.g-link.g-link_upper.g-link_bold {COLOR: #7e64bd !important}'); //regular server link color
 
-    addGlobalStyle('.l-corpr__td.l-qa-check-report__segment-number.l-corpr__td_openable {padding-right: 4px !important;}'); //лечение эпилепсии от наведения курсора на активную строку
+    addGlobalStyle('div.g-popupbox__panel.g-tabs__panel.g-tabs__panel_clearfix {bottom: 20px; !important;}'); //formatting
+    addGlobalStyle('div.g-popupbox__panel.g-tabs__panel.l-project__executive-tab {min-height: 150px !important; height: 150px !important; display: block !important;}'); //show mass confirm here too, don't switch tabs
+    addGlobalStyle('div.g-popupbox__bd {height: 555px !important;}'); //window size to avoid clashing with ok/cancel buttons
 
-    //после обновления 6.12.2018
-    addGlobalStyle('.g-row.g-row_spacing_xxxl {margin-bottom: 0px !important;}'); //подчищаем дыры для выравнивания кнопок
-    addGlobalStyle('.md-select__container.md-select__label_float {padding-top: 0px !important;}'); //подчищаем дыры для выравнивания кнопок
-    addGlobalStyle('.g-row.g-row_spacing_m.g-grid.g-grid_cols_2 {margin-bottom: 0px !important;}'); //подчищаем дыры для выравнивания кнопок
-    addGlobalStyle('.g-row.g-row_spacing_m.g-grid.g-grid_cols_3 {margin-bottom: 0px !important;}'); //подчищаем дыры для выравнивания кнопок
-
-    //ТОТАЛЬНОЕ уплотнение списков в окне просмотра проекта и поиска ошибок
-    addGlobalStyle('.l-corpr__td {padding-top: 1px !important; padding-bottom: 1px !important;}'); //уплотнение по вертикали
+    //addGlobalStyle('.l-corpr__td.l-qa-check-report__segment-number.l-corpr__td_openable {padding-right: 4px !important;}'); //used to cure epilepsy, fixed
+    addGlobalStyle('.g-row.g-row_spacing_xxxl {margin-bottom: 0px !important;}'); //hole cleanup, button alignment
+    addGlobalStyle('.md-select__container.md-select__label_float {padding-top: 0px !important;}'); //hole cleanup, button alignment
+    addGlobalStyle('.g-row.g-row_spacing_m.g-grid.g-grid_cols_2 {margin-bottom: 0px !important;}'); //hole cleanup, button alignment
+    addGlobalStyle('.g-row.g-row_spacing_m.g-grid.g-grid_cols_3 {margin-bottom: 0px !important;}'); //hole cleanup, button alignment
+    
+    addGlobalStyle('.l-corpr__td {padding-top: 0px !important; padding-bottom: 0px !important;}'); //vertical list compression
 
 })();
