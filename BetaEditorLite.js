@@ -62,6 +62,7 @@
     addGlobalStyle('.x-tab {padding: 0px 15px !important}'); //and tab headers
     addGlobalStyle('.x-toolbar {padding: 0px 8px !important}'); //and tabs
     addGlobalStyle('.l-comment-text {margin-top: 0px !important;}'); //and comments
+    addGlobalStyle('.l-comment__row {font-weight: 400 !important;}'); //fix for the fucked up comments font
     
     addGlobalStyle('@media screen and (min-height: 1200px) {.l-segments__row.l-segments__row-selected {background-color: #bfdae0 !important;}}'); //With great resolution comes great color
 
