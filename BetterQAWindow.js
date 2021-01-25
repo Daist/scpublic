@@ -19,7 +19,7 @@
     addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__projname-th {width: 330px !important;}'); //project width 
     addGlobalStyle('.l-corpr__th.l-project__td.l-project__td_progress {width: 120px !important;}'); //progress bar width
     
-    addGlobalStyle('div.ui-progressbar__line.ui-progressbar__line--2 {background-color: #e5a5e5 !important;}'); //calm pink progress bar
+    addGlobalStyle('.ui-progressbar__line.ui-progressbar__line--2 {background-color: #e5a5e5 !important;}'); //calm pink progress bar
     
     addGlobalStyle('.g-popupbox_size_xl {height:75vh !important; width: 75vw !important;}'); //QA window
     addGlobalStyle('.g-popupbox.g-popupbox_size_xl.g-popupbox_content_flexable {max-height:75vh !important;}'); //QA window
