@@ -23,6 +23,7 @@
     
     addGlobalStyle('.g-popupbox_size_xl {height:75vh !important; width: 75vw !important;}'); //QA window
     addGlobalStyle('.g-popupbox.g-popupbox_size_xl.g-popupbox_content_flexable {max-height:75vh !important;}'); //QA window
+    addGlobalStyle('.l-corpr__tbl.l-qa-check-report__table {width:95% !important;}'); //margin to hover cursor while scrolling
 
     addGlobalStyle('.l-corpr__td.l-qa-check-report__document-title {COLOR: #EFEFEF !important}'); //grey-out filenames
     addGlobalStyle('.g-link {COLOR: #EFEFEF !important}'); //grey-out links
