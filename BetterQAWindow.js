@@ -18,6 +18,8 @@
     addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__client-vendor-td {width: 130px !important;}'); //client width
     addGlobalStyle('.l-project-list__th.l-corpr__th.l-project-list__projname-th {width: 330px !important;}'); //project width 
     addGlobalStyle('.l-corpr__th.l-project__td.l-project__td_progress {width: 120px !important;}'); //progress bar width
+
+    addGlobalStyle('.l-qa-check-report__segment-text {width: 50% !important;}'); //fix width for number/date
     
     addGlobalStyle('.ui-progressbar__line.ui-progressbar__line--2 {background-color: #e5a5e5 !important;}'); //calm pink progress bar
     
