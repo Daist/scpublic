@@ -54,11 +54,11 @@
     addGlobalStyle('div#assigned-stages-select.x-segmented-button.x-box-item.x-segmented-button-vertical.x-segmented-button-default {width: 80vw !important; height: 75vh !important}'); //editor button, aiming sucks
     addGlobalStyle('a#select-manager-btn.x-btn.x-unselectable.x-box-item.x-btn-default-medium {width: 80vw !important; height: 10vh !important}'); //manager button
 
-    addGlobalStyle('.workflow-progress-tip {right: auto; top: 1px !important; z-index: 19010; left: 50% !important; height: 50px !important; width: 350px !important; display: block !important}'); //stick progress
+    //addGlobalStyle('.workflow-progress-tip {right: auto; top: 1px !important; z-index: 19010; left: 50% !important; height: 50px !important; width: 350px !important; display: block !important}'); //stick progress
     addGlobalStyle('.x-tip-body.x-tip-body-default.x-tip-body-default {left: 0px;top: 0px; padding: 0px 0px 0px 0px !important;}'); //shrink my progress baby (and other popups)
-    addGlobalStyle('.progress-legend-name{font-size:12px !important; padding-bottom: 0px !important;}'); // work font, shrink'em
-    addGlobalStyle('.progress-legend{min-width: 350px !important;}'); //progress in %, line intact
-    addGlobalStyle('.l-workflow-progress-tip__words-count{min-width: 150px !important; padding-bottom: 0px !important;}'); //progress in words, line intact
+    //addGlobalStyle('.progress-legend-name{font-size:12px !important; padding-bottom: 0px !important;}'); // work font, shrink'em
+    //addGlobalStyle('.progress-legend{min-width: 350px !important;}'); //progress in %, line intact
+    //addGlobalStyle('.l-workflow-progress-tip__words-count{min-width: 150px !important; padding-bottom: 0px !important;}'); //progress in words, line intact
 
     addGlobalStyle('.l-revisions-toolbar {padding: 0px !important;}'); //rev history
     addGlobalStyle('.l-revisions__column.l-revisions__column-number, .l-revisions__column.l-revisions__column-text, .l-revisions__column.l-revisions__column-date, .l-revisions__column.l-revisions__column-stage, .l-revisions__column.l-revisions__column-user, .l-revisions__column.l-revisions__column-save, .l-comment__row.l-comment_new.l-comment_own {padding: 0px 12px !important; min-height: 20px !important}'); //rev history & comments
