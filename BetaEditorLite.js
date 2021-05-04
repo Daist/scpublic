@@ -23,10 +23,10 @@
     //addGlobalStyle('.l-segments__table {font-weight: 500 !important;}'); //font thickness, ugly alternative
     //addGlobalStyle('.l-segments__table {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: 0px 0px 0px !important; -webkit-text-stroke-width: 0.01px !important;}'); //less ugly, fat AA
     
-    //после 14.04.2021 тень замыливает-размыливает текст при любых изменениях, пришлось отключить
-    //
-    //addGlobalStyle('@media screen and (-webkit-min-device-pixel-ratio:0) {.l-segments__table {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: 0px 0px 1px rgba(80,80,80,0.3) !important; -webkit-text-stroke-width: 0.01px !important;}}'); //обмазываемся жЫрным антиалиасингом, но только в хроме
-    //addGlobalStyle('@media screen and (min--moz-device-pixel-ratio:0) {.l-segments__table {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: none !important}}'); //в ФФ не обмазываемся
+    //после 14.04.2021 text shadow blinks, had to disable
+    //04.05.2021 fixed, working as intended
+    //addGlobalStyle('@media screen and (-webkit-min-device-pixel-ratio:0) {.l-segments__table {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: 0px 0px 1px rgba(80,80,80,0.3) !important; -webkit-text-stroke-width: 0.01px !important;}}'); //
+    //addGlobalStyle('@media screen and (min--moz-device-pixel-ratio:0) {.l-segments__table {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: none !important}}'); //
     addGlobalStyle('@media screen and (-webkit-min-device-pixel-ratio:0) {.l-content-view.l-content-editor {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: 0px 0px 1px rgba(80,80,80,0.3) !important; -webkit-text-stroke-width: 0.01px !important;}}'); //обмазываемся жЫрным антиалиасингом, но только в хроме
     addGlobalStyle('@media screen and (min--moz-device-pixel-ratio:0) {.l-content-view.l-content-editor {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: none !important}}'); //в ФФ не обмазываемся
 
