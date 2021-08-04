@@ -68,6 +68,9 @@
     addGlobalStyle('.l-errors__column.l-errors__column-number, .l-errors__column.l-errors__column-text.l-errors__column-text_with-checker, .l-errors__column.l-errors__column-checker {padding: 0px 12px !important; min-height: 20px !important}'); //errors
     addGlobalStyle('.l-errors__scrollable-body {top: 20px !important;}'); //errors
     
+    addGlobalStyle('.l-segments__cell__match-percentage.yellow {color: #c36e04 !important;}');//fuzzy match color
+    addGlobalStyle('.l-segments__cell__info__text-source {font-size: 12px !important;}');//fuzzy match font size
+    
     addGlobalStyle('.x-column-header-inner, .x-grid-cell-inner {padding: 0px 12px !important;}'); //shrink my history
     addGlobalStyle('.x-tab {padding: 0px 15px !important}'); //and tab headers
     addGlobalStyle('.x-toolbar {padding: 0px 8px !important}'); //and tabs
