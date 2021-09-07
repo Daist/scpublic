@@ -52,7 +52,7 @@
     //addGlobalStyle('.g-icon.g-icon_join {width: 120px !important; background-color: #CCFFCC !important;}'); //segment merge is big and green
 
     //addGlobalStyle('.l-cat__number, .l-cat__source-text, .l-cat__match, .l-cat__target-text, .l-cat__cell.l-cat-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - #, Orig, %, Tran. Bad cat, no padding for you
-    addGlobalStyle('.l-cat__cell.l-cat__number, .l-cat__cell.l-cat__cell_text, .l-cat__cell.l-cat__match {padding: 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу - после 03.09.2021
+    addGlobalStyle('.l-cat__cell.l-cat__number, .l-cat__cell.l-cat__cell_text, .l-cat__cell.l-cat__match {padding: 0px 5px 0px 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу - после 03.09.2021
     //addGlobalStyle('.l-cat-row {min-height: 20px !important}'); //CAT - TM & TB - line height
     addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
     addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
