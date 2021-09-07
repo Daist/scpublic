@@ -76,7 +76,7 @@
     addGlobalStyle('.l-errors__column.l-errors__column-number, .l-errors__column.l-errors__column-text.l-errors__column-text_with-checker, .l-errors__column.l-errors__column-checker {padding: 0px 12px !important; min-height: 20px !important}'); //errors
     addGlobalStyle('.l-errors__scrollable-body {top: 20px !important;}'); //errors
 	
-    addGlobalStyle('.l-notification__container {padding: 7px !important}'); //всплывающее окно уведомлений
+    addGlobalStyle('div.l-notification__container {padding: 7px !important}'); //всплывающее окно уведомлений
     
     //addGlobalStyle('.l-segments__cell__match-percentage.yellow {color: #c36e04 !important;}');//fuzzy match color
     addGlobalStyle('.l-segments__match-percentage.l-segments__match-percentage_yellow {color: #c36e04 !important;}');//цвет неполных соответствий - после 03.09.2021
