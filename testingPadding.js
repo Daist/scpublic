@@ -12,7 +12,7 @@
     //Latest update - Sep 07, 2021
 
     //padding
-    addGlobalStyle('div.l-notification__container {padding: 7px !important}'); //всплывающее окно уведомлений
+    addGlobalStyle('div.l-notification__container {padding: 7px !important;}'); //всплывающее окно уведомлений
     addGlobalStyle('@media screen and (min-height: 1200px) {.l-segments__row.l-segments__row_selected.js-active-row {background-color: #bfdae0 !important;}}');
 
 })();
