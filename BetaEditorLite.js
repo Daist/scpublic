@@ -82,6 +82,8 @@
     addGlobalStyle('.l-segments__cell__info__text-source {font-size: 12px !important;}');//fuzzy match font size
 
     addGlobalStyle('div.l-notification__container {padding: 7px !important;}'); //всплывающее окно уведомлений
+    
+    addGlobalStyle('.l-search-filter__next-occurrence, .l-search-filter__previous-occurrence {opacity: 50% !important;}'); //прозрачность кнопок поиска вперёд-назад
 
     //addGlobalStyle('.x-column-header-inner, .x-grid-cell-inner {padding: 0px 12px !important;}'); //shrink my history
     //addGlobalStyle('.x-tab {padding: 0px 15px !important}'); //and tab headers
