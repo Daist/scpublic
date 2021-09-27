@@ -58,7 +58,7 @@
     addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
 
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
-    addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы вид работ влезал без прокрутки
+    addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы влезало без прокрутки
 
     //addGlobalStyle('div#assigned-stages-select.x-segmented-button.x-box-item.x-segmented-button-vertical.x-segmented-button-default {width: 80vw !important; height: 75vh !important}'); //editor button, aiming sucks - не работает после беты 17.08.2021
     //addGlobalStyle('a#select-manager-btn.x-btn.x-unselectable.x-box-item.x-btn-default-medium {width: 80vw !important; height: 10vh !important}'); //manager button - не работает после беты 17.08.2021
