@@ -9,7 +9,7 @@
         style.innerHTML = css;
         head.appendChild(style);
     }
-    //Latest update - Sep 07, 2021
+    //Latest update - Sep 27, 2021
 
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
