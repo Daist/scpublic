@@ -62,7 +62,9 @@
 
     //addGlobalStyle('div#assigned-stages-select.x-segmented-button.x-box-item.x-segmented-button-vertical.x-segmented-button-default {width: 80vw !important; height: 75vh !important}'); //editor button, aiming sucks - не работает после беты 17.08.2021
     //addGlobalStyle('a#select-manager-btn.x-btn.x-unselectable.x-box-item.x-btn-default-medium {width: 80vw !important; height: 10vh !important}'); //manager button - не работает после беты 17.08.2021
-    addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup .g-layout_horizontal .g-btn__combo > button {font-size: 26px !important; background: #d2f9d2 !important;}'); //temp solution
+    //addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup .g-layout_horizontal .g-btn__combo > button {font-size: 26px !important; background: #d2f9d2 !important;}'); //temp solution
+    addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup div.g-dialog:has(div.g-btn__combo) {width: 90vw !important; height: 90vh !important;}'); //если есть класс "div.g-btn__combo", как в запросе "открыть как" - раздвигаем окно под кнопку
+    addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup .g-layout_horizontal .g-btn__combo > button {width: 80vw !important; height: 75vh !important; font-size: 26px !important; background: #d2f9d2 !important;}'); //пихаем жЫрную кнопку
 
     //addGlobalStyle('.workflow-progress-tip {right: auto; top: 1px !important; z-index: 19010; left: 50% !important; height: 50px !important; width: 350px !important; display: block !important}'); //stick progress
     addGlobalStyle('.x-tip-body.x-tip-body-default.x-tip-body-default {left: 0px;top: 0px; padding: 0px 0px 0px 0px !important;}'); //shrink my progress baby (and other popups)
