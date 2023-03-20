@@ -46,7 +46,8 @@
 
     //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
     addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
-    addGlobalStyle('.l-segments__cell__info-errors__icon {font: 10px/1 "smartcat-icons" !important; color: #fb8c00 !important;}'); //errors? what errors?
+    //addGlobalStyle('.l-segments__cell__info-errors__icon {font: 10px/1 "smartcat-icons" !important; color: #fb8c00 !important;}'); //errors? what errors?
+    addGlobalStyle('.l-segments__attention {font: 10px/1 "smartcat-icons" !important; color: #fb8c00 !important;}'); //errors? what errors? - after 20.03.2023
 
     //addGlobalStyle('.l-toolbar-button.l-icon-btn {width: 100% !important;}'); //container spread
     //addGlobalStyle('.g-icon.g-icon_join {width: 120px !important; background-color: #CCFFCC !important;}'); //segment merge is big and green
