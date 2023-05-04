@@ -9,7 +9,7 @@
         style.innerHTML = css;
         head.appendChild(style);
     }
-    //Latest update - Mar 03, 2023
+    //Latest update - May 04, 2023
 
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
@@ -52,13 +52,22 @@
     addGlobalStyle('.sc-button_simple .sc-icon {fill: #000000 !important;}'); //галка в неподтверждённых сегментах
 
     //Убираем попугайские лампочки на фуре
-    addGlobalStyle('.sc-badge_blue[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    addGlobalStyle('.sc-badge_green[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    addGlobalStyle('.sc-badge_yellow[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    addGlobalStyle('.sc-badge_red[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    addGlobalStyle('.sc-badge_purple[data-v-e7a7d4da] {opacity: 0.3 !important;}');
+    //addGlobalStyle('.sc-badge_blue[data-v-e7a7d4da] {opacity: 0.3 !important;}');
+    //addGlobalStyle('.sc-badge_green[data-v-e7a7d4da] {opacity: 0.3 !important;}');
+    //addGlobalStyle('.sc-badge_yellow[data-v-e7a7d4da] {opacity: 0.3 !important;}');
+    //addGlobalStyle('.sc-badge_red[data-v-e7a7d4da] {opacity: 0.3 !important;}');
+    //addGlobalStyle('.sc-badge_purple[data-v-e7a7d4da] {opacity: 0.3 !important;}');
 
-    addGlobalStyle('.stage-select__wrapper .sc-progressbar {width: 200px !important;}'); //progress bar length
+    addGlobalStyle('.sc-badge.sc-badge_blue {opacity: 0.3 !important;}');
+    addGlobalStyle('.sc-badge.sc-badge_green {opacity: 0.3 !important;}');
+    addGlobalStyle('.sc-badge.sc-badge_yellow {opacity: 0.3 !important;}');
+    addGlobalStyle('.sc-badge.sc-badge_red {opacity: 0.3 !important;}');
+    addGlobalStyle('.sc-badge.sc-badge_purple {opacity: 0.3 !important;}');
+
+    addGlobalStyle('.stage-select__wrapper .sc-progressbar {width: 400px !important}'); //full progress bar length
+    addGlobalStyle('.sc-progressbar__progress-value {height: 1rem !important;}'); //completed progress bar height
+    addGlobalStyle('.sc-progressbar .sc-progressbar__progress {height: 1rem !important;}'); //full progress bar height
+
     addGlobalStyle('.language-select__wrapper {max-width: 100px !important;}'); //language field length
 
     //addGlobalStyle('.errors-wrap__count-errors {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
@@ -77,6 +86,8 @@
 
     //addGlobalStyle('.l-cat__number, .l-cat__source-text, .l-cat__match, .l-cat__target-text, .l-cat__cell.l-cat-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - #, Orig, %, Tran. Bad cat, no padding for you
     addGlobalStyle('.content-editable-wrapper__content {padding: 0px !important;}'); //padding в окне редактора
+
+    addGlobalStyle('.table-filter-empty-row {padding: 0px !important;}'); //padding в тупой пустой последней строке
 
     addGlobalStyle('.l-cat__cell.l-cat__number, .l-cat__cell.l-cat__cell_text, .l-cat__cell.l-cat__match {padding: 0px 5px 0px 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу - после 03.09.2021
     //addGlobalStyle('.l-cat-row {min-height: 20px !important}'); //CAT - TM & TB - line height
