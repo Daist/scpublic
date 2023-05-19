@@ -41,6 +41,7 @@
     addGlobalStyle('.l-segments__preview.g-icon.g-icon_preview {display:none !important;}'); //прячем глаз - после 03.09.2021
 
     addGlobalStyle('.l-workflow-progress-panel__ls-wordcount {color:#000000 !important;}'); // stat text color
+    addGlobalStyle('.l-segments__cell-info {border-left: 1px groove #eae1eb !important;}'); // vertical line between target & info
 
     //Make non-confirmed stand out vs confirmed
     addGlobalStyle('.segment-button-confirm-done.sc-button_flat:disabled .sc-button__text .sc-icon[data-v-642de42f] {fill: #A0F9A0 !important;}'); //цвет галки светлее
@@ -52,12 +53,6 @@
     addGlobalStyle('.sc-button_simple .sc-icon {fill: #000000 !important;}'); //галка в неподтверждённых сегментах
 
     //Убираем попугайские лампочки на фуре
-    //addGlobalStyle('.sc-badge_blue[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    //addGlobalStyle('.sc-badge_green[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    //addGlobalStyle('.sc-badge_yellow[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    //addGlobalStyle('.sc-badge_red[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-    //addGlobalStyle('.sc-badge_purple[data-v-e7a7d4da] {opacity: 0.3 !important;}');
-
     addGlobalStyle('.sc-badge.sc-badge_blue {opacity: 0.3 !important;}');
     addGlobalStyle('.sc-badge.sc-badge_green {opacity: 0.3 !important;}');
     addGlobalStyle('.sc-badge.sc-badge_yellow {opacity: 0.3 !important;}');
@@ -80,6 +75,7 @@
     //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
     addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
     addGlobalStyle('svg[data-test-id="errors-wrap__icon"] {height: 7px !important; width: 7px !important; color: #fb8c00 !important;}'); //errors? what errors?
+    addGlobalStyle('.l-segments-v2__info-left svg[xmlns="http://www.w3.org/2000/svg"] {width: 10px !important; height: 10px !important; opacity: 30% !important}'); //smaller arrow "translated outside smartcat"
 
     //addGlobalStyle('.l-toolbar-button.l-icon-btn {width: 100% !important;}'); //container spread
     //addGlobalStyle('.g-icon.g-icon_join {width: 120px !important; background-color: #CCFFCC !important;}'); //segment merge is big and green
