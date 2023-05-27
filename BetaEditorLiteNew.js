@@ -9,14 +9,14 @@
         style.innerHTML = css;
         head.appendChild(style);
     }
-    //Latest update - May 14, 2023
+    //Latest update - May 27, 2023
 
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
     addGlobalStyle('.l-segments__cell.l-segments__cell_number, .l-segments__cell_editor, .l-segments__cell.l-segments__cell-info {padding: 0px 20px 0px 8px !important;}'); // поля ячеек в редакторе - после 03.09.2021
     //addGlobalStyle('.l-segments__row-v2.l-segments__editor_source, .l-segments__row-v2.l-segments__editor_target {padding: 0px !important; border-radius: 0px !important;}'); // поля ячеек в редакторе в новой версии - после 15.03.2022 - не работает
 
-
+    addGlobalStyle('.l-content-editor__view {font-variant-ligatures: none !important;}'); //лечим баг со слипанием для сочетаний "fi" и "fl".
 
     //window height-based safety
     //addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important; min-height: 36px !important;}}');
