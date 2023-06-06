@@ -9,7 +9,7 @@
         style.innerHTML = css;
         head.appendChild(style);
     }
-    //Latest update - May 27, 2023
+    //Latest update - June 06, 2023
 
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
@@ -113,7 +113,7 @@
     //addGlobalStyle('.l-revisions__column.l-revisions__column-number, .l-revisions__column.l-revisions__column-text, .l-revisions__column.l-revisions__column-date, .l-revisions__column.l-revisions__column-stage, .l-revisions__column.l-revisions__column-user, .l-revisions__column.l-revisions__column-save, .l-comment__row.l-comment_new.l-comment_own {padding: 0px 12px !important; min-height: 20px !important}'); //rev history & comments
     addGlobalStyle('.l-revisions__header, .l-revisions__column, .l-revisions__column.l-revisions__column_text {padding: 0px 6px !important; min-height: 20px !important}'); //строка истории - после 03.09.2021
     addGlobalStyle('.l-revisions__scrollable-body {top: 46px !important;}'); //rev history
-    addGlobalStyle('.l-revisions-v2__table>*>*>* {padding: 3px !important; min-height: 20px !important;}'); //rev history
+    addGlobalStyle('.l-revisions-v2__table>*>*>* {padding: 3px !important; min-height: 20px !important; top: 0px !important;}'); //rev history
 
 
 
