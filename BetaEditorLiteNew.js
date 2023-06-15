@@ -66,7 +66,8 @@
     addGlobalStyle('.language-select__wrapper {max-width: 100px !important;}'); //language field length
 
     //addGlobalStyle('.errors-wrap__count-errors {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
-    addGlobalStyle('.sc-text_12[data-v-50c514e8][data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
+    //addGlobalStyle('.sc-text_12[data-v-50c514e8][data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //закрыто для теста
+    addGlobalStyle('.sc-text_12[data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
 
 
     //addGlobalStyle('.tooltip-comment.tooltip-comment-active {opacity: 0.2 !important;}');//полупрозрачный всплывающий значок коммента
