@@ -17,7 +17,7 @@ var script_about = "https://greasyfork.org/scripts/13007-text-highlight-and-seek
 */
 /* -------- Note 2 --------
  Script modified for use in the new design of Smartcat
- Edit lines 363-367 if the condition/attribute name changes
+ Edit lines 345-348 if the condition/attribute name changes
 */
 var hlframe, hlobjDefault, kwhieditstyle, hljson, hlobj, hlkeys, kwold, hlold, hlbtnvis, hlprecode, hlnextset, hbtndisp;
 var GM4 = (typeof GM_getValue === "undefined") ? true : false;
@@ -342,8 +342,8 @@ function THmo_doHighlight(el,subset){
   var scrollElement = document.getElementById("segmentsTable");
   var highlighterElement = el.closest('.l-content-editor__view.l-content-editor__view_highlighter');
 
-  //if (scrollElement && !scrollElement.contains(el)) {
-  if ((scrollElement && !scrollElement.contains(el)) || highlighterElement) {
+  if (scrollElement && !scrollElement.contains(el)) {
+  //if ((scrollElement && !scrollElement.contains(el)) || highlighterElement) {
     return; // exits the function if el is not within scrollElement
   }
 
