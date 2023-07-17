@@ -45,7 +45,7 @@
 
     //Make non-confirmed stand out vs confirmed
     addGlobalStyle('.segment-button-confirm-done.sc-button_flat:disabled .sc-button__text .sc-icon[data-v-642de42f] {fill: #A0F9A0 !important;}'); //цвет галки светлее
-    addGlobalStyle('button[data-test-id="confirm-btn_done"] .sc-icon {width: 10px !important; height: 10px !important;}'); //галка помельче
+    addGlobalStyle('button[data-testid="confirm-btn_done"] .sc-icon {width: 10px !important; height: 10px !important;}'); //галка помельче
 
     //addGlobalStyle('.l-segments__confirm-btn {font-weight: bold !important; color: #000000 !important;}'); //bold unconf tick
     addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
@@ -66,8 +66,7 @@
     addGlobalStyle('.language-select__wrapper {max-width: 100px !important;}'); //language field length
 
     //addGlobalStyle('.errors-wrap__count-errors {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
-    //addGlobalStyle('.sc-text_12[data-v-50c514e8][data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //закрыто для теста
-    addGlobalStyle('.sc-text_12[data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
+    addGlobalStyle('.sc-text_12[data-testid="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
 
 
     //addGlobalStyle('.tooltip-comment.tooltip-comment-active {opacity: 0.2 !important;}');//полупрозрачный всплывающий значок коммента
@@ -75,7 +74,7 @@
 
     //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
     addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
-    addGlobalStyle('svg[data-test-id="errors-wrap__icon"] {height: 7px !important; width: 7px !important; color: #fb8c00 !important;}'); //errors? what errors?
+    addGlobalStyle('svg[data-testid="errors-wrap__icon"] {height: 7px !important; width: 7px !important; color: #fb8c00 !important;}'); //errors? what errors?
     addGlobalStyle('.l-segments-v2__info-left svg[xmlns="http://www.w3.org/2000/svg"] {width: 10px !important; height: 10px !important; opacity: 30% !important}'); //smaller arrow "translated outside smartcat"
 
     //addGlobalStyle('.l-toolbar-button.l-icon-btn {width: 100% !important;}'); //container spread
