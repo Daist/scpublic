@@ -13,7 +13,8 @@
 
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
-    addGlobalStyle('.l-segments__cell.l-segments__cell_number, .l-segments__cell_editor, .l-segments__cell.l-segments__cell-info {padding: 0px 20px 0px 8px !important;}'); // поля ячеек в редакторе - после 03.09.2021
+    addGlobalStyle('.l-segments__cell.l-segments__cell_number, .l-segments__cell_editor, .l-segments__cell.l-segments__cell-info {padding: 0px 20px 4px 8px !important;}'); // поля ячеек в редакторе - после 03.09.2021
+    addGlobalStyle('.grid-number-column-td.handle {padding-top: 0px}!important;}');
     //addGlobalStyle('.l-segments__row-v2.l-segments__editor_source, .l-segments__row-v2.l-segments__editor_target {padding: 0px !important; border-radius: 0px !important;}'); // поля ячеек в редакторе в новой версии - после 15.03.2022 - не работает
 
     addGlobalStyle('.l-content-editor__view {font-variant-ligatures: none !important;}'); //лечим баг со слипанием для сочетаний "fi" и "fl".
