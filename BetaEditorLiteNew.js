@@ -94,8 +94,8 @@
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
     addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы влезало без прокрутки
 
-    addGlobalStyle('#sc-popup-wrapper > div.sc-popup:has(div.l-task-selector__buttons) {width: 90vw !important; height: 90vh !important;}'); //если есть класс "div.g-btn__combo", как в запросе "открыть как" - раздвигаем окно под кнопку
-    addGlobalStyle('#sc-popup-wrapper .l-task-selector__buttons > button {width: 80vw !important; height: 75vh !important; font-size: 26px !important; background: #d2f9d2 !important;}'); //пихаем жЫрную кнопку
+    addGlobalStyle('.l-task-selector.sc-popup {width: 90vw !important; height: 90vh !important;}'); //раздвигаем окно под кнопку "редактор или манагер"
+    addGlobalStyle('.l-task-selector__buttons > button {width: 80vw !important; height: 75vh !important; font-size: 26px !important; background: #d2f9d2 !important;}'); //пихаем жЫрную кнопку
 
 
     addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup .g-layout_horizontal .g-btn__combo > button {font-size: 26px !important; background: #d2f9d2 !important;}');
