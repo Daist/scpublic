@@ -44,6 +44,8 @@
     addGlobalStyle('.l-workflow-progress-panel__ls-wordcount {color:#000000 !important;}'); // stat text color
     addGlobalStyle('.l-segments__cell-info {border-left: 1px groove #eae1eb !important;}'); // vertical line between target & info
 
+    addGlobalStyle('div[data-testid="dropdown-container"].sc-dropdown__container {max-height: 90vh !important;}'); // filters dropdown menu enlarged to fit more options without scrolling
+    
     //Make non-confirmed stand out vs confirmed
     addGlobalStyle('.segment-button-confirm-done.sc-button_flat:disabled .sc-button__text .sc-icon[data-v-642de42f] {fill: #A0F9A0 !important;}'); //цвет галки светлее
     addGlobalStyle('button[data-testid="confirm-btn_done"] .sc-icon {width: 10px !important; height: 10px !important;}'); //галка помельче
