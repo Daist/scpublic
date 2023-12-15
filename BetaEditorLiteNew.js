@@ -64,10 +64,8 @@
 
     //changed after 7.11.2023
     addGlobalStyle('.stage-select__progressbar.sc-progress {width: 400px !important}'); //full progress bar length
-    //addGlobalStyle('.sc-progress[data-v-530e998f] {height: 1rem !important; background-color: #d1b8ff !important;}'); //completed progress bar height
-    //addGlobalStyle('.sc-progress__bar_pink {height: 1rem !important; background-color: #a000cc !important;}'); //full progress bar height
-    addGlobalStyle('.sc-progress[data-v-b0baa5bc] {height: 1rem !important; background-color: #d1b8ff !important;}'); // progress bar height & color
-    addGlobalStyle('.sc-progress__bar[data-v-b0baa5bc] {height: 1rem !important; background-color: #a000cc !important;}'); //completed bar     
+    addGlobalStyle('.sc-progress {height: 1rem !important; background-color: #d1b8ff !important;}'); // progress bar height & background color
+    addGlobalStyle('.sc-progress__bar {height: 1rem !important; background-color: #a000cc !important;}'); //completed bar     
 
     addGlobalStyle('.language-select__wrapper {max-width: 100px !important;}'); //language field length
 
