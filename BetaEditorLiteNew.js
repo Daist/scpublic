@@ -89,10 +89,11 @@
 
     addGlobalStyle('.table-filter-empty-row {padding: 0px !important;}'); //padding в тупой пустой последней строке
 
-    addGlobalStyle('.l-cat__cell.l-cat__number, .l-cat__cell.l-cat__cell_text, .l-cat__cell.l-cat__match {padding: 0px 5px 0px 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу - после 03.09.2021
+    //addGlobalStyle('.l-cat__cell.l-cat__number, .l-cat__cell.l-cat__cell_text, .l-cat__cell.l-cat__match {padding: 0px 5px 0px 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу - после 03.09.2021
     //addGlobalStyle('.l-cat-row {min-height: 20px !important}'); //CAT - TM & TB - line height
-    addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
-    addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
+    //addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
+    //addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
+    addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - номера, оригинал, %, перевод, отступы сверху и снизу - после 26.02.2023
 
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
     addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы влезало без прокрутки
