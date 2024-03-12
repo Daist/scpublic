@@ -94,7 +94,7 @@
     //addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
     //addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
     addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
-    addGlobalStyle('.translation-row {grid-template-columns: 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
+    addGlobalStyle('.translation-row {grid-template-columns: 20px 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
 
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
     addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы влезало без прокрутки
