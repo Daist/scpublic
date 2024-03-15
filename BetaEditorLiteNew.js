@@ -16,7 +16,8 @@
     addGlobalStyle('.l-segments__cell.l-segments__cell_number, .l-segments__cell_editor, .l-segments__cell.l-segments__cell-info {padding: 0px 20px 4px 8px !important;}'); // поля ячеек в редакторе - после 03.09.2021
     addGlobalStyle('.grid-number-column-td.handle {padding-top: 0px}!important;}');
     //addGlobalStyle('.l-segments__row-v2.l-segments__editor_source, .l-segments__row-v2.l-segments__editor_target {padding: 0px !important; border-radius: 0px !important;}'); // поля ячеек в редакторе в новой версии - после 15.03.2022 - не работает
-
+    addGlobalStyle('.grid-row__cell.l-segments__cell-info {padding: 0px 8px !important;}'); //поля в ячейке со значком подтверждения
+    
     addGlobalStyle('.l-content-editor__view {font-variant-ligatures: none !important;}'); //лечим баг со слипанием для сочетаний "fi" и "fl".
 
     //window height-based safety
