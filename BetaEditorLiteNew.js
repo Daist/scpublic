@@ -24,6 +24,8 @@
     //addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important; min-height: 36px !important;}}');
     addGlobalStyle('@media screen and (min-height: 960px) {.l-segments__number-value {min-height: 36px !important;}}'); //мин. высота строки при высоте окна >960px = 36px - после 03.09.2021
 
+    //после 19.03.2023
+    addGlobalStyle('.l-segments__cell_editor {font-family: Roboto, InvisibleFont, Inter, Helvetica, Arial, sans-serif !important;}'); //possible fonts - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
     //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //font size, line interval; possible fonts - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
 
     //Improve font readability
