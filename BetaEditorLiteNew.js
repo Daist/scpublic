@@ -17,12 +17,13 @@
     addGlobalStyle('.grid-number-column-td.handle {padding-top: 0px}!important;}');
     //addGlobalStyle('.l-segments__row-v2.l-segments__editor_source, .l-segments__row-v2.l-segments__editor_target {padding: 0px !important; border-radius: 0px !important;}'); // поля ячеек в редакторе в новой версии - после 15.03.2022 - не работает
     addGlobalStyle('.grid-row__cell.l-segments__cell-info {padding: 0px 8px !important;}'); //поля в ячейке со значком подтверждения
+    //window height-based safety
+    addGlobalStyle('@media screen and (min-height: 960px) {.grid-row__cell.l-segments__cell-info {padding: 12px 8px !important;}}'); //поля в ячейке со значком подтверждения
+    //addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important; min-height: 36px !important;}}');
+    //addGlobalStyle('@media screen and (min-height: 960px) {.l-segments__number-value {min-height: 36px !important;}}'); //мин. высота строки при высоте окна >960px = 36px - после 03.09.2021
+
     
     addGlobalStyle('.l-content-editor__view {font-variant-ligatures: none !important;}'); //лечим баг со слипанием для сочетаний "fi" и "fl".
-
-    //window height-based safety
-    //addGlobalStyle('@media screen and (min-height: 850px) {.l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important; min-height: 36px !important;}}');
-    addGlobalStyle('@media screen and (min-height: 960px) {.l-segments__number-value {min-height: 36px !important;}}'); //мин. высота строки при высоте окна >960px = 36px - после 03.09.2021
 
     //после 19.03.2023
     addGlobalStyle('.l-segments__cell_editor {font-family: Roboto, InvisibleFont, Inter, Helvetica, Arial, sans-serif !important;}'); //possible fonts - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
