@@ -337,6 +337,24 @@ THS_init();
 // Main workhorse routine
 function THmo_doHighlight(el,subset){
 
+  // Fetch all elements that belong to the target column
+var scrollElements = document.getElementsByClassName("l-segments__cell_editor-target");
+
+// Function to check if the target element is contained within any of the column cells
+function isContainedInColumn(targetElement) {
+  for (let element of scrollElements) {
+    if (element.contains(targetElement)) {
+      return true; // The target element is within this column cell
+    }
+  }
+  return false; // The target element is not in any of the column cells
+}
+
+// Use this function to check before processing
+if (!isContainedInColumn(el)) {
+  return; // Skip processing this element as it's not in the target column
+}
+  /*
   //Check if the element is in the source/target panel, if not - don't highlight it
     //var scrollElement = document.getElementById("scrollElement");
   var scrollElement = document.getElementById("segmentsTable");
@@ -347,6 +365,9 @@ function THmo_doHighlight(el,subset){
     return; // exits the function if el is not within scrollElement
   }
 
+  */
+
+  
   if (subset) var keyset = subset;
   else var keyset = hlkeys;
   for (var j = 0; j < keyset.length; ++j) {
