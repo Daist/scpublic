@@ -76,7 +76,7 @@
 
 
     //addGlobalStyle('.tooltip-comment.tooltip-comment-active {opacity: 0.2 !important;}');//полупрозрачный всплывающий значок коммента
-    addGlobalStyle('.tooltip-comment.tooltip-comment-active {display:none !important;}');//полупрозрачный всплывающий значок коммента
+    addGlobalStyle('.tooltip-comment.tooltip-comment-active {display:none !important;}');//скрываем всплывающий значок коммента
 
     //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
     addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
@@ -97,6 +97,8 @@
     //addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
     addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
     addGlobalStyle('.translation-row {grid-template-columns: 20px 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
+
+    addGlobalStyle('.translation-row.translation-row--selected .l-content-editor__view.l-content-editor__view_highlighter {display: none !important};'); //убираем второй слой (подсветку) в строках CAT TM, чтобы не захватывался при выделении
 
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
     addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы влезало без прокрутки
