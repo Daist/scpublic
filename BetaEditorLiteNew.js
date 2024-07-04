@@ -53,7 +53,8 @@
     addGlobalStyle('button[data-testid="confirm-btn_done"] .sc-icon {width: 10px !important; height: 10px !important;}'); //галка помельче
 
     //addGlobalStyle('.l-segments__confirm-btn {font-weight: bold !important; color: #000000 !important;}'); //bold unconf tick
-    addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
+    //addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
+    addGlobalStyle('button[data-testid="confirm-btn"].sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
     addGlobalStyle('.sc-button_cta-black .sc-icon {fill: #000000 !important;}'); //галка в текущем неподтверждённом сегменте
     addGlobalStyle('.sc-button_simple .sc-icon {fill: #000000 !important;}'); //галка в неподтверждённых сегментах
 
