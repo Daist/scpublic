@@ -97,7 +97,7 @@
     //addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
     //addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
     addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
-    addGlobalStyle('.translation-row {grid-template-columns: 20px 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
+    addGlobalStyle('.translation-row {grid-template-columns: 30px 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
 
     addGlobalStyle('.translation-row.translation-row--selected .l-content-editor__view.l-content-editor__view_highlighter {display: none !important};'); //убираем второй слой (подсветку) в строках CAT TM, чтобы не захватывался при выделении
 
