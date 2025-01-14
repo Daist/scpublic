@@ -10,7 +10,7 @@
         head.appendChild(style);
     }
     //Latest update - June 06, 2023
-
+    addGlobalStyle('.sc-popup-presenter {display: none !important;}'); //temporary solution
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
     addGlobalStyle('.l-segments__cell_editor, .l-segments__cell-info {padding: 0px 20px 0px 8px !important;}'); // поля ячеек в редакторе - при высоте окна менее 960px - после 03.09.2021
