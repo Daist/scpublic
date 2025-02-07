@@ -9,7 +9,9 @@
         style.innerHTML = css;
         head.appendChild(style);
     }
-    //Latest update - June 06, 2023
+    //Latest update - Feb 07, 2025
+    addGlobalStyle('.red {display: none !important;}'); //hiding the Revision History header to save space
+    
     //addGlobalStyle('.sc-popup-presenter {display: none !important;}'); //temporary solution to remove "Cannot continue work" overlay.
     //padding
     //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
