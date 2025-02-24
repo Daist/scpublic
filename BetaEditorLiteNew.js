@@ -127,7 +127,7 @@
     addGlobalStyle('.l-revisions__header, .l-revisions__column, .l-revisions__column.l-revisions__column_text {padding: 0px 6px !important; min-height: 20px !important}'); //строка истории - после 03.09.2021
     addGlobalStyle('.l-revisions__scrollable-body {top: 46px !important;}'); //rev history
     addGlobalStyle('.l-revisions-v2__table>*>*>* {padding: 3px !important; min-height: 20px !important; top: 0px !important;}'); //rev history
-
+    addGlobalStyle('span.sc-text.sc-text_12.sc-text_regular.sc-text_normal.sc-text_none { display: none !important; }'); //hide the role in rev history = less interline gap, moar lines to fit
 
 
     addGlobalStyle('.l-errors__column.l-errors__column-number, .l-errors__column.l-errors__column-text.l-errors__column-text_with-checker, .l-errors__column.l-errors__column-checker {padding: 0px 12px !important; min-height: 20px !important}'); //errors
