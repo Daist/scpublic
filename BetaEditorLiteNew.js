@@ -96,7 +96,7 @@
 
     //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
     addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
-    addGlobalStyle('svg[data-testid="errors-wrap__icon"] {height: 7px !important; width: 7px !important; color: #fb8c00 !important;}'); //errors? what errors?
+    addGlobalStyle('svg[data-testid="errors-wrap__icon"] {height: 7px !important; width: 0px !important; color: #fb8c00 !important;}'); //errors? what errors?
     addGlobalStyle('.l-segments-v2__info-left svg[xmlns="http://www.w3.org/2000/svg"] {width: 10px !important; height: 10px !important; opacity: 30% !important}'); //smaller arrow "translated outside smartcat"
 
     //addGlobalStyle('.l-toolbar-button.l-icon-btn {width: 100% !important;}'); //container spread
@@ -172,4 +172,5 @@
 
     //addGlobalStyle('');
 })();
+
 
