@@ -41,14 +41,15 @@
     addGlobalStyle('@media screen and (min--moz-device-pixel-ratio:0) {.l-content-view.l-content-editor {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: none !important}}'); //в ФФ не обмазываемся
 
 
-
+/*
     //1.11.2025 - уменьшение информационной колонки
+    //19.11.2025 - пришлось убрать, глючит на коротких сегментах
     addGlobalStyle('.errors-wrap__container[data-v-6931d544] {min-width: 1px !important; max-width: 1px !important}'); //скукоживаем контейнер ошибки (бесполезный)
     addGlobalStyle('.l-segments__cell-info {width: 5% !important}'); //smaller info column
     addGlobalStyle('.counter-wrapper {display: none !important}'); //smaller container for info column
     addGlobalStyle('.l-segments-v2__info {gap: 1px !important; padding-right: 1px !important}'); //smaller container for info column
     addGlobalStyle('.l-segments-v2__info-left {gap: 1px !important; grid-template-columns: repeat(3, 0fr) !important}'); //smaller container for info column
-
+*/
 
 
 
@@ -172,5 +173,6 @@
 
     //addGlobalStyle('');
 })();
+
 
 
