@@ -115,6 +115,20 @@
     addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
     addGlobalStyle('.translation-row {grid-template-columns: 30px 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
 
+    //после 09.07.2026
+    addGlobalStyle('.suggested-glossary-terms-hint {flex-wrap: wrap !important;}');
+    addGlobalStyle('.suggested-glossary-terms-hint__text { white-space: normal !important; flex: 1 !important; min-width: 0 !important; }');
+    // Разрешаем перенос текста внутри кнопок в этом блоке
+    addGlobalStyle('.suggested-glossary-terms-hint__actions .sc-button__text { white-space: normal !important; text-align: center !important; line-height: 1.1 !important; }');
+    // Убираем жесткую фиксацию высоты кнопки, чтобы она могла растягиваться вниз при переносе текста
+    addGlobalStyle('.suggested-glossary-terms-hint__actions .sc-button { height: auto !important; min-height: 14px !important; padding: 0px 0px !important; white-space: normal !important; }');
+    // На всякий случай разрешаем самим кнопкам (если их там несколько) перескакивать друг под друга
+    addGlobalStyle('.suggested-glossary-terms-hint__actions { flex-wrap: wrap !important; justify-content: center !important; }');
+    // Выставляем текст и кнопку не в длину, а колонкой, чтоб на большом масштабе не рвало вёрстку
+    addGlobalStyle('.suggested-glossary-terms-hint { flex-direction: column !important; align-items: center !important; gap: 8px !important; }');
+
+    
+
     addGlobalStyle('.translation-row.translation-row--selected .l-content-editor__view.l-content-editor__view_highlighter {display: none !important};'); //убираем второй слой (подсветку) в строках CAT TM, чтобы не захватывался при выделении
 
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
