@@ -1,33 +1,53 @@
+// Третий вариант
+
 (function() {
     'use strict';
+
+    const rules = [];
+
     function addGlobalStyle(css) {
-        var head, style;
-        head = document.getElementsByTagName('head')[0];
-        if (!head) { return; }
-        style = document.createElement('style');
-        style.type = 'text/css';
-        style.innerHTML = css;
-        head.appendChild(style);
+        rules.push(css);
     }
-    //Latest update - Feb 07, 2025
+
+// === GEMINI ULTRA-COMPACT SEGMENTS BLOCK ===
+    // 1. «Схлопываем» вторую пустую строку (контекст и метки)
+    addGlobalStyle('tbody[data-testid="segment-row"] > tr:nth-child(2) td { padding: 0 !important; height: 0 !important; line-height: 0 !important; font-size: 0 !important; border: none !important; }');
+    // 2. Ужимаем отступы во всех основных ячейках первой строки (Source, Target, Info)
+    addGlobalStyle('tbody[data-testid="segment-row"] .grid-row__cell { padding-top: 1px !important; padding-bottom: 1px !important; min-height: 0 !important; }');
+    // 3. Сплющиваем ячейку с номером сегмента слева
+    addGlobalStyle('tbody[data-testid="segment-row"] td[data-testid="number"] { padding-top: 0 !important; padding-bottom: 0 !important; vertical-align: middle !important; }');
+    // 4. Убираем минимальную высоту и внешние поля у обертки редактора
+    addGlobalStyle('tbody[data-testid="segment-row"] .content-editable-wrapper { min-height: 0 !important; padding: 0 !important; margin: 0 !important; }');
+    // 5. Ужимаем сам текст и межстрочный интервал
+    addGlobalStyle('tbody[data-testid="segment-row"] .l-content-editor__view { min-height: 0 !important; line-height: 1.25 !important; padding-top: 1px !important; padding-bottom: 1px !important; }');
+    // 6. Стягиваем блок информации справа
+    addGlobalStyle('tbody[data-testid="segment-row"] .l-segments-v2__info { padding: 0 !important; min-height: 0 !important; align-items: center !important; }');
+    // 7. Уменьшаем высоту плашек совпадения (101%, 97% и т.д.)
+    addGlobalStyle('tbody[data-testid="segment-row"] .sc-badge { height: 16px !important; line-height: 16px !important; padding: 0 4px !important; }');
+    // 8. Уменьшаем высоту кнопки подтверждения (галочки)
+    addGlobalStyle('tbody[data-testid="segment-row"] button[data-testid^="confirm-btn"] { height: 20px !important; min-height: 20px !important; padding: 0 4px !important; }');
+    // ===========================================
+
+    //Latest update - January 14, 2025
+    addGlobalStyle('.sc-popup-presenter {display: none !important;}'); //killing the "Cannot continue work" overlay.
+
     addGlobalStyle('.red {display: none !important;}'); //hiding the Revision History header to save space
-    
-    //addGlobalStyle('.sc-popup-presenter {display: none !important;}'); //temporary solution to remove "Cannot continue work" overlay.
-    //padding
-    //addGlobalStyle('.l-segments__cell.l-segments__cell-number, .l-segments__cell.l-segments__cell-editor.js-source-cell, .l-segments__cell.l-segments__cell-editor.js-target-cell, .l-segments__cell.l-segments__cell-info, .l-segments__cell__editor.source, .l-segments__cell__editor.target {padding: 0px 20px 0px 8px !important;}');
-    addGlobalStyle('.l-segments__cell_editor, .l-segments__cell-info {padding: 0px 20px 0px 8px !important;}'); // поля ячеек в редакторе - при высоте окна менее 960px - после 03.09.2021
-    addGlobalStyle('.grid-number-column-td.handle {padding-top: 0px !important;}'); //поля для столбца номера
+//////////////////
+    // addGlobalStyle('.l-segments__cell_editor, .l-segments__cell-info {padding: 0px 20px 0px 8px !important;}'); //Override by Gemini // поля ячеек в редакторе - при высоте окна менее 960px - после 03.09.2021
+//////////////////
+    // addGlobalStyle('.grid-number-column-td.handle {padding-top: 0px !important;}'); //Override by Gemini
 
-    //window height-based safety for segment loading
-    addGlobalStyle('@media screen and (min-height: 960px) {.l-segments__cell_editor, .l-segments__cell-info {padding: 0px 20px 4px 8px !important;}}'); //поля в ячейке со значком подтверждения - при высоте окна менее 1200px
-    addGlobalStyle('@media screen and (min-height: 1200px) {.l-segments__cell_editor, .l-segments__cell-info {padding: 4px 20px 8px 8px !important;}}'); //поля в ячейке со значком подтверждения - при высоте окна более 1200px
-
-    
-    addGlobalStyle('.l-content-editor__view {font-variant-ligatures: none !important;}'); //лечим баг со слипанием для сочетаний "fi" и "fl".
+    //window height-based safety
+    // addGlobalStyle('@media screen and (min-height: 960px) {.l-segments__cell_editor, .l-segments__cell-info {padding: 0px 20px 4px 8px !important;}}'); //Override by Gemini //поля в ячейке со значком подтверждения
+    // addGlobalStyle('@media screen and (min-height: 1200px) {.l-segments__cell_editor, .l-segments__cell-info {padding: 4px 20px 8px 8px !important;}}'); //Override by Gemini //поля в ячейке со значком подтверждения
 
     //после 19.03.2023
     addGlobalStyle('.l-segments__cell_editor {font-family: Roboto, InvisibleFont, Inter, Helvetica, Arial, sans-serif !important;}'); //possible fonts - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
-    //addGlobalStyle('.x-segments .x-grid-item {font-size: 16px !important; line-height: 16px !important;}'); //font size, line interval; possible fonts - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
+
+
+    //addGlobalStyle('.l-segments__table-v2 {font-size: 16px !important; line-height: 16px !important; font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;}'); //font size, line interval; possible fonts - font-family: "Tahoma", "Times New Roman", Roboto, Helvetica, Arial, sans-serif !important;
+    //addGlobalStyle('.l-segments__table-v2 {font: 400 16px/20px Roboto,Helvetica,Arial,sans-serif !important; font-size: 16px !important; line-height: 20px;}'); 18px for larger font
+
 
     //Improve font readability
     //addGlobalStyle('.l-segments__table {font-weight: 500 !important;}'); //font thickness, ugly alternative
@@ -41,20 +61,6 @@
     addGlobalStyle('@media screen and (min--moz-device-pixel-ratio:0) {.l-content-view.l-content-editor {-webkit-font-smoothing: subpixel-antialiased !important; text-shadow: none !important}}'); //в ФФ не обмазываемся
 
 
-/*
-    //1.11.2025 - уменьшение информационной колонки
-    //19.11.2025 - пришлось убрать, глючит на коротких сегментах
-    addGlobalStyle('.errors-wrap__container[data-v-6931d544] {min-width: 1px !important; max-width: 1px !important}'); //скукоживаем контейнер ошибки (бесполезный)
-    addGlobalStyle('.l-segments__cell-info {width: 5% !important}'); //smaller info column
-    addGlobalStyle('.counter-wrapper {display: none !important}'); //smaller container for info column
-    addGlobalStyle('.l-segments-v2__info {gap: 1px !important; padding-right: 1px !important}'); //smaller container for info column
-    addGlobalStyle('.l-segments-v2__info-left {gap: 1px !important; grid-template-columns: repeat(3, 0fr) !important}'); //smaller container for info column
-*/
-
-
-
-    
-
     //addGlobalStyle('.l-segments__cell__preview.g-icon.g-icon_preview.l-segments__cell__preview_alone {display:none !important;}'); //hide irritating preview icon
     //addGlobalStyle('.l-segments__cell__preview.g-icon.g-icon_preview {display:none !important;}'); //hide irritating preview icon
     addGlobalStyle('.l-segments__preview.g-icon.g-icon_preview {display:none !important;}'); //прячем глаз - после 03.09.2021
@@ -63,13 +69,15 @@
     addGlobalStyle('.l-segments__cell-info {border-left: 1px groove #eae1eb !important;}'); // vertical line between target & info
 
     addGlobalStyle('div[data-testid="dropdown-container"].sc-dropdown__container {max-height: 90vh !important;}'); // filters dropdown menu enlarged to fit more options without scrolling
-    
+
     //Make non-confirmed stand out vs confirmed
-    addGlobalStyle('.segment-button-confirm-done.sc-button_flat:disabled .sc-button__text .sc-icon[data-v-642de42f] {fill: #A0F9A0 !important;}'); //цвет галки светлее
+    //addGlobalStyle('.segment-button-confirm-done.sc-button_flat:disabled .sc-button__text .sc-icon[data-v-642de42f] {fill: #A0F9A0 !important;}'); //цвет галки светлее
+    addGlobalStyle('.segment-button-confirm-done.sc-button_flat:disabled .sc-icon[data-v-73ed85ed] {fill: #A0F9A0 !important;}'); //цвет галки светлее
+
     addGlobalStyle('button[data-testid="confirm-btn_done"] .sc-icon {width: 10px !important; height: 10px !important;}'); //галка помельче
 
     //addGlobalStyle('.l-segments__confirm-btn {font-weight: bold !important; color: #000000 !important;}'); //bold unconf tick
-    //addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
+//    addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
     addGlobalStyle('button[data-testid="confirm-btn"].sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
     addGlobalStyle('.sc-button_cta-black .sc-icon {fill: #000000 !important;}'); //галка в текущем неподтверждённом сегменте
     addGlobalStyle('.sc-button_simple .sc-icon {fill: #000000 !important;}'); //галка в неподтверждённых сегментах
@@ -81,30 +89,44 @@
     addGlobalStyle('.sc-badge.sc-badge_red {opacity: 0.3 !important;}');
     addGlobalStyle('.sc-badge.sc-badge_purple {opacity: 0.3 !important;}');
 
-    //changed after 7.11.2023
     addGlobalStyle('.stage-select__progressbar.sc-progress {width: 400px !important}'); //full progress bar length
-    addGlobalStyle('.sc-progress {height: 1rem !important; background-color: #d1b8ff !important;}'); // progress bar height & background color
-    addGlobalStyle('.sc-progress__bar {height: 1rem !important; background-color: #a000cc !important;}'); //completed bar     
+    addGlobalStyle('.sc-progress {height: 1rem !important; background-color: #d1b8ff !important;}'); // progress bar height & color
+    addGlobalStyle('.sc-progress__bar {height: 1rem !important; background-color: #a000cc !important;}'); //completed bar
 
     addGlobalStyle('.language-select__wrapper {max-width: 100px !important;}'); //language field length
 
     //addGlobalStyle('.errors-wrap__count-errors {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
+    //addGlobalStyle('.sc-text_12[data-v-50c514e8][data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
+    //addGlobalStyle('.sc-text_12[data-test-id="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения - после 12.07.23
     addGlobalStyle('.sc-text_12[data-testid="errors-wrap__text"] {font-size: 1px !important;}'); //текст цифр у числа ошибок напротив значка подтверждения
-
-
-    //addGlobalStyle('.tooltip-comment.tooltip-comment-active {opacity: 0.2 !important;}');//полупрозрачный всплывающий значок коммента
-    addGlobalStyle('.tooltip-comment.tooltip-comment-active {display:none !important;}');//скрываем всплывающий значок коммента
-
-    //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
-    addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
     addGlobalStyle('svg[data-testid="errors-wrap__icon"] {height: 7px !important; width: 0px !important; color: #fb8c00 !important;}'); //errors? what errors?
     addGlobalStyle('.l-segments-v2__info-left svg[xmlns="http://www.w3.org/2000/svg"] {width: 10px !important; height: 10px !important; opacity: 30% !important}'); //smaller arrow "translated outside smartcat"
 
+
+
+    //1.11.2025 - уменьшение информационной колонки
+    /*
+    addGlobalStyle('.errors-wrap__container[data-v-6931d544] {min-width: 1px !important; max-width: 1px !important}'); //скукоживаем контейнер ошибки (бесполезный)
+    addGlobalStyle('.l-segments__cell-info {width: 5% !important}'); //smaller info column
+    addGlobalStyle('.counter-wrapper {display: none !important}'); //smaller container for info column
+    addGlobalStyle('.l-segments-v2__info {gap: 1px !important; padding-right: 1px !important}'); //smaller container for info column
+    addGlobalStyle('.l-segments-v2__info-left {gap: 1px !important; grid-template-columns: repeat(3, 0fr) !important}'); //smaller container for info column
+    */
+
+
+
+    addGlobalStyle('.l-content-editor__view {font-variant-ligatures: none !important;}'); //лечим баг со слипанием для сочетаний "fi" и "fl".
+
+    //addGlobalStyle('.tooltip-comment.tooltip-comment-active {opacity: 0.2 !important;}');//полупрозрачный всплывающий значок коммента
+    addGlobalStyle('.tooltip-comment.tooltip-comment-active {display:none !important;}');//отсутствующий всплывающий значок коммента
+
+    //addGlobalStyle('.l-segments__cell__info__text-workflow {font-weight: bold !important; font: 15px/1 !important; color: #000000 !important;}'); //bold work name
+    //addGlobalStyle('.l-segments__cell__info__text-workflow.l-segments__confirmed {font-weight: normal !important; font: 10px/1 !important; color: #A0F9A0 !important;}'); //"done" small and green
     //addGlobalStyle('.l-toolbar-button.l-icon-btn {width: 100% !important;}'); //container spread
     //addGlobalStyle('.g-icon.g-icon_join {width: 120px !important; background-color: #CCFFCC !important;}'); //segment merge is big and green
-
     //addGlobalStyle('.l-cat__number, .l-cat__source-text, .l-cat__match, .l-cat__target-text, .l-cat__cell.l-cat-text {padding-top: 0px !important; padding-bottom: 0px !important;}'); //CAT - TM & TB - #, Orig, %, Tran. Bad cat, no padding for you
-    addGlobalStyle('.content-editable-wrapper__content {padding: 0px !important;}'); //padding в окне редактора
+
+    // addGlobalStyle('.content-editable-wrapper__content {padding: 0px !important;}'); //Override by Gemini //padding в окне редактора
 
     addGlobalStyle('.table-filter-empty-row {padding: 0px !important;}'); //padding в тупой пустой последней строке
 
@@ -113,31 +135,40 @@
     //addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
     //addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
     addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
-    addGlobalStyle('.translation-row {grid-template-columns: 30px 50px 1fr 1fr !important}'); //CAT - TM & TB - ширина столбцов  - после 26.02.2023
+    addGlobalStyle('.translation-row {grid-template-columns: 30px 50px 1fr 1fr !important}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
+    //addGlobalStyle('.translation-row {grid-template-columns: 30px 50px minmax(0, 1fr) minmax(0, 1fr) !important}');
 
     //после 09.07.2026
+    /*
     addGlobalStyle('.suggested-glossary-terms-hint {flex-wrap: wrap !important;}');
+    */
     addGlobalStyle('.suggested-glossary-terms-hint__text { white-space: normal !important; flex: 1 !important; min-width: 0 !important; }');
+    /*
     // Разрешаем перенос текста внутри кнопок в этом блоке
     addGlobalStyle('.suggested-glossary-terms-hint__actions .sc-button__text { white-space: normal !important; text-align: center !important; line-height: 1.1 !important; }');
     // Убираем жесткую фиксацию высоты кнопки, чтобы она могла растягиваться вниз при переносе текста
     addGlobalStyle('.suggested-glossary-terms-hint__actions .sc-button { height: auto !important; min-height: 14px !important; padding: 0px 0px !important; white-space: normal !important; }');
     // На всякий случай разрешаем самим кнопкам (если их там несколько) перескакивать друг под друга
+
     addGlobalStyle('.suggested-glossary-terms-hint__actions { flex-wrap: wrap !important; justify-content: center !important; }');
+    */
     // Выставляем текст и кнопку не в длину, а колонкой, чтоб на большом масштабе не рвало вёрстку
+
     addGlobalStyle('.suggested-glossary-terms-hint { flex-direction: column !important; align-items: center !important; gap: 8px !important; }');
+    /**/
+    //addGlobalStyle('.sc-text_12[data-v-fe7a7749] {font-size: 12px; line-height: 16px;}'); //CAT - line number & idiotic hotkey prompt ; display: none
 
-    
 
-    addGlobalStyle('.translation-row.translation-row--selected .l-content-editor__view.l-content-editor__view_highlighter {display: none !important};'); //убираем второй слой (подсветку) в строках CAT TM, чтобы не захватывался при выделении
+
+    addGlobalStyle('.translation-row.translation-row--selected .l-content-editor__view.l-content-editor__view_highlighter {display: none !important};'); //убираем второй слой (подсветку) в строках CAT TM
 
     addGlobalStyle('.l-search-filter__toggle-extend-filter {min-width: 75px !important}'); //fixed width, no filter button wiggle
     addGlobalStyle('.md-select_options_no-overflow, .md-select__option {padding: 8px !important}'); //выпадающие списки в фильтре - меньше отступ слева, чтобы влезало без прокрутки
 
-    addGlobalStyle('.l-task-selector.sc-popup {width: 90vw !important; height: 90vh !important;}'); //раздвигаем окно под кнопку "редактор или манагер"
+    //addGlobalStyle('#sc-popup-wrapper > div.sc-popup:has(div.l-task-selector__buttons) {width: 90vw !important; height: 90vh !important;}'); //если есть класс "div.g-btn__combo", как в запросе "открыть как" - раздвигаем окно под кнопку
+    //addGlobalStyle('#sc-popup-wrapper .l-task-selector__buttons > button {width: 80vw !important; height: 75vh !important; font-size: 26px !important; background: #d2f9d2 !important;}');
+    addGlobalStyle('.l-task-selector.sc-popup {width: 90vw !important; height: 90vh !important;}'); //раздвигаем окно под кнопку
     addGlobalStyle('.l-task-selector__buttons > button {width: 80vw !important; height: 75vh !important; font-size: 26px !important; background: #d2f9d2 !important;}'); //пихаем жЫрную кнопку
-
-
     addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup .g-layout_horizontal .g-btn__combo > button {font-size: 26px !important; background: #d2f9d2 !important;}');
     //addGlobalStyle('.editor-wrapper > .g-popup-box.editor-popup .g-layout_horizontal .g-btn__combo > button {width: 80vw !important; height: 75vh !important}'); //editor button
     //addGlobalStyle('.editor-wrapper > .editor-popup.g-popupbox__wrapper {width: 90vw !important; height: 90vh !important}'); //editor button
@@ -154,9 +185,11 @@
     //addGlobalStyle('.l-revisions__column.l-revisions__column-number, .l-revisions__column.l-revisions__column-text, .l-revisions__column.l-revisions__column-date, .l-revisions__column.l-revisions__column-stage, .l-revisions__column.l-revisions__column-user, .l-revisions__column.l-revisions__column-save, .l-comment__row.l-comment_new.l-comment_own {padding: 0px 12px !important; min-height: 20px !important}'); //rev history & comments
     addGlobalStyle('.l-revisions__header, .l-revisions__column, .l-revisions__column.l-revisions__column_text {padding: 0px 6px !important; min-height: 20px !important}'); //строка истории - после 03.09.2021
     addGlobalStyle('.l-revisions__scrollable-body {top: 46px !important;}'); //rev history
-    addGlobalStyle('.l-revisions-v2__table>*>*>* {padding: 3px !important; min-height: 20px !important; top: 0px !important;}'); //rev history
-    //addGlobalStyle('span.sc-text.sc-text_12.sc-text_regular.sc-text_normal.sc-text_none { display: none !important; }'); //hide the role in rev history = less interline gap, moar lines to fit
+    addGlobalStyle('.l-revisions-v2__table>*>*>* {padding: 3px !important; min-height: 20px !important; top: 0px !important}'); //rev history
 
+    //addGlobalStyle('span.sc-text.sc-text_12.sc-text_regular.sc-text_normal.sc-text_none { display: none !important; }'); //hide the role in rev history, reduce interline gap
+    //addGlobalStyle('span.sc-text.sc-text_12.sc-text_regular.sc-text_normal.sc-text_none:not(.counter-segments) { display: none !important; }');
+    addGlobalStyle('tr[data-testid="revision-row"] [data-testid="user-name"] + div { display: none !important; }');
 
     addGlobalStyle('.l-errors__column.l-errors__column-number, .l-errors__column.l-errors__column-text.l-errors__column-text_with-checker, .l-errors__column.l-errors__column-checker {padding: 0px 12px !important; min-height: 20px !important}'); //errors
     addGlobalStyle('.l-errors__scrollable-body {top: 20px !important;}'); //errors
@@ -186,7 +219,11 @@
     //addGlobalStyle('@media screen and (min-height: 1200px) {.l-segments__table {font-size: 17px !important}}'); //With great resolution comes greater font size
 
     //addGlobalStyle('');
+
+// Для третьего варианта
+// --- В самом конце собираем всё в один CSS-блок и добавляем в DOM ---
+    const style = document.createElement('style');
+    style.textContent = rules.join('\n');
+    (document.head || document.documentElement).appendChild(style);
+
 })();
-
-
-
