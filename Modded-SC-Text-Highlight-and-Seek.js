@@ -173,7 +173,30 @@ async function THS_init(){
   THmo_doHighlight(document.body,null);
 
   // Add MutationObserver to catch content added dynamically
+  
   var THmo_MutOb = (window.MutationObserver) ? window.MutationObserver : window.WebKitMutationObserver;
+  
+  // Заменить текущий обработчик MutationObserver:
+  if (THmo_MutOb){
+    var thsDebounceTimer = null;
+    var THmo_chgMon = new THmo_MutOb(function(mutationSet){
+      // Откладываем обработку на 50 мс, чтобы давать AHK завершить вставку
+      clearTimeout(thsDebounceTimer);
+      thsDebounceTimer = setTimeout(function() {
+        mutationSet.forEach(function(mutation){
+          for (var i=0; i<mutation.addedNodes.length; i++){
+            if (mutation.addedNodes[i].nodeType == 1){
+              THmo_doHighlight(mutation.addedNodes[i],null);
+            }
+          }
+        });
+      }, 50); 
+    });
+    
+    var opts = {childList: true, subtree: true};
+    THmo_chgMon.observe(document.body, opts);
+  }
+  /*
   if (THmo_MutOb){
     var THmo_chgMon = new THmo_MutOb(function(mutationSet){
       mutationSet.forEach(function(mutation){
@@ -188,6 +211,7 @@ async function THS_init(){
     var opts = {childList: true, subtree: true};
     THmo_chgMon.observe(document.body, opts);
   }
+  */
 
   // Set up top highlight/seek bar
   var kwhibar = document.createElement("div");
