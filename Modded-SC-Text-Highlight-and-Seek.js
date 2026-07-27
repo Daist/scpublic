@@ -338,6 +338,12 @@ THS_init();
 function THmo_doHighlight(el,subset){
 
   // Fetch all elements that belong to the target column
+  // Быстрая нативная проверка через closest() без обхода массива элементов
+  if (!el.closest || !el.closest('.l-segments__cell_editor-target')) {
+    return;
+  }
+
+/*
 var scrollElements = document.getElementsByClassName("l-segments__cell_editor-target");
 
 // Function to check if the target element is contained within any of the column cells
@@ -354,6 +360,7 @@ function isContainedInColumn(targetElement) {
 if (!isContainedInColumn(el)) {
   return; // Skip processing this element as it's not in the target column
 }
+  */
   /*
   //Check if the element is in the source/target panel, if not - don't highlight it
     //var scrollElement = document.getElementById("scrollElement");
