@@ -29,7 +29,7 @@
     // ===========================================
 
     //Latest update - January 14, 2025
-    addGlobalStyle('.sc-popup-presenter {display: none !important;}'); //killing the "Cannot continue work" overlay.
+    //addGlobalStyle('.sc-popup-presenter {display: none !important;}'); //killing the "Cannot continue work" overlay.
 
     addGlobalStyle('.red {display: none !important;}'); //hiding the Revision History header to save space
 //////////////////
