@@ -134,7 +134,7 @@
     //addGlobalStyle('.l-cat-row {min-height: 20px !important}'); //CAT - TM & TB - line height
     //addGlobalStyle('.l-cat__row {min-height: 20px !important}'); //CAT - TM & TB - высота строки - после 03.09.2021
     //addGlobalStyle('.l-cat__cell.l-cat__number {width: 24px !important}'); //CAT - TM & TB - # - fixed width
-    addGlobalStyle('.translation-row__cell {padding: 0px 5px 5px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
+    addGlobalStyle('.translation-row__cell {padding: 0px 5px 1px 0px !important;}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 31.07.2026
     addGlobalStyle('.translation-row {grid-template-columns: 30px 50px 1fr 1fr !important}'); //CAT - TM & TB - оригинал, перевод - отступы  - после 26.02.2023
     //addGlobalStyle('.translation-row {grid-template-columns: 30px 50px minmax(0, 1fr) minmax(0, 1fr) !important}');
 
