@@ -489,8 +489,15 @@ async function kwhiimport(e){ var txtImport = prompt("Paste in exported JSON:", 
 // Переключатели опций в меню
 async function kwhihbtn(e){ hlbtnvis = e.target.checked ? "on" : "off"; if (!GM4) GM_setValue("hlbtnvis",hlbtnvis); else await GM.setValue("hlbtnvis",hlbtnvis); document.getElementById("btnshowkwhi").style.display = e.target.checked ? "" : "none"; }
 async function kwhiprecode(e){ hlprecode = e.target.checked; if (!GM4) GM_setValue("hlprecode",hlprecode); else await GM.setValue("hlprecode",hlprecode); THmo_doHighlight(document.body); }
-function kwhicancelipe(setno){ var kwdiv = document.querySelector('#kwhitbod .'+setno); if (kwdiv) kwdiv.innerHTML = hlobj[setno].keywords; }
-function kwhitopdropclose(e){ kwhicancelipe(''); document.getElementById('thdtopdrop').style.display='none'; }
+function kwhicancelipe(setno){
+  if (!setno) return; // Если аргумент пустой, ничего не делаем и не валим скрипт ошибкой
+  var kwdiv = document.querySelector('#kwhitbod .' + setno);
+  if (kwdiv && hlobj[setno]) kwdiv.innerHTML = hlobj[setno].keywords;
+}
+function kwhitopdropclose(e){
+  if (e) e.preventDefault();
+  document.getElementById('thdtopdrop').style.display = 'none';
+}
 function thsreread(e){}
 async function thsframeselect(e){ hlframe = e.target.options[e.target.selectedIndex].value; if (!GM4) GM_setValue("hlframe",hlframe); else await GM.setValue("hlframe",hlframe); setthsframeopts(); }
 function setthsframeopts(){ var sel = document.getElementById("hlframeselect"); for(var i=0; i<3; i++) sel.options[i].selected = (sel.options[i].value === hlframe); }
