@@ -89,6 +89,8 @@
     addGlobalStyle('.sc-badge.sc-badge_red {opacity: 0.3 !important;}');
     addGlobalStyle('.sc-badge.sc-badge_purple {opacity: 0.3 !important;}');
 
+    addGlobalStyle('.errors-tqs__badge-wrapper {display:none !important;}'); //прячем уродский Q XXX, после 09.09.2026
+
     addGlobalStyle('.stage-select__progressbar.sc-progress {width: 400px !important}'); //full progress bar length
     addGlobalStyle('.sc-progress {height: 1rem !important; background-color: #d1b8ff !important;}'); // progress bar height & color
     addGlobalStyle('.sc-progress__bar {height: 1rem !important; background-color: #a000cc !important;}'); //completed bar
