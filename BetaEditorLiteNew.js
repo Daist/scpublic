@@ -77,7 +77,7 @@
     addGlobalStyle('button[data-testid="confirm-btn_done"] .sc-icon {width: 10px !important; height: 10px !important;}'); //галка помельче
 
     //addGlobalStyle('.l-segments__confirm-btn {font-weight: bold !important; color: #000000 !important;}'); //bold unconf tick
-//    addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
+//  addGlobalStyle('.sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
     addGlobalStyle('button[data-testid="confirm-btn"].sc-button_cta-black {background-color: #bfdae0 !important; color: #000000 !important; border: .1rem solid #bfbfbf !important;}'); //фон с галкой в текущем сегменте
     addGlobalStyle('.sc-button_cta-black .sc-icon {fill: #000000 !important;}'); //галка в текущем неподтверждённом сегменте
     addGlobalStyle('.sc-button_simple .sc-icon {fill: #000000 !important;}'); //галка в неподтверждённых сегментах
@@ -227,5 +227,370 @@
     const style = document.createElement('style');
     style.textContent = rules.join('\n');
     (document.head || document.documentElement).appendChild(style);
+
+// =========================================================================
+// === SMARTCAT CONCORDANCE SEARCH ENHANCER ===
+// =========================================================================
+
+    const win = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
+
+    const CONFIG = {
+        MAX_ITEMS: 3000,    // Максимум загружаемых результатов для защиты от зависания
+        BATCH_SIZE: 5,      // Число параллельных запросов пагинации
+        LOGS: true          // Вывод отладочной информации в Console DevTools
+    };
+
+    const originalFetch = win.fetch.bind(win);
+    const origOpen = win.XMLHttpRequest.prototype.open;
+    const origSend = win.XMLHttpRequest.prototype.send;
+    const origSetRequestHeader = win.XMLHttpRequest.prototype.setRequestHeader;
+
+    const searchCache = new Map();
+
+    function log(msg, ...args) {
+        if (CONFIG.LOGS) {
+            console.log(`%c[Smartcat Enhancer]%c ${msg}`, 'color: #00e5ff; font-weight: bold;', 'color: #eceff1;', ...args);
+        }
+    }
+
+    function isConcordanceUrl(url) {
+        if (!url) return false;
+        const lower = String(url).toLowerCase();
+        return lower.includes('translationmemoriessearch/search') && !lower.includes('__enhanced=1');
+    }
+
+    function extractUrlString(resource) {
+        if (!resource) return '';
+        if (typeof resource === 'string') return resource;
+        if (resource instanceof URL) return resource.href;
+        if (resource instanceof Request) return resource.url;
+        if (typeof resource.url === 'string') return resource.url;
+        if (typeof resource.href === 'string') return resource.href;
+        return String(resource);
+    }
+
+    function sanitizeQuery(rawText) {
+        if (!rawText) return '';
+        return rawText.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
+    }
+
+    // Расчёт релевантности для сортировки (без штрафа за длину сегмента)
+    function calculateRelevance(item, query, isReverse, isCaseSensitive) {
+        const text = (isReverse ? item.targetText : item.sourceText) || '';
+        if (!text || !query) return 0;
+
+        const q = isCaseSensitive ? query : query.toLowerCase();
+        const t = isCaseSensitive ? text : text.toLowerCase();
+
+        // 1. Полное совпадение сегмента
+        if (t.trim() === q.trim()) return 100000;
+
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        // Границы слов с поддержкой Unicode (кириллица, латиница и др.)
+        const exactWordRegex = new RegExp(`(?<=^|[^\\p{L}\\p{N}_])${escaped}(?=[^\\p{L}\\p{N}_]|$)`, 'gu');
+        const caseInsensitiveWordRegex = new RegExp(`(?<=^|[^\\p{L}\\p{N}_])${escaped}(?=[^\\p{L}\\p{N}_]|$)`, 'gui');
+
+        const exactMatches = text.match(exactWordRegex);
+        const caseInsensitiveMatches = text.match(caseInsensitiveWordRegex);
+
+        let score = 0;
+
+        if (exactMatches && exactMatches.length > 0) {
+            // Точное отдельное слово с сохранением регистра (Lidding == Lidding)
+            score = 50000 + (exactMatches.length * 1000);
+        } else if (caseInsensitiveMatches && caseInsensitiveMatches.length > 0) {
+            // Точное отдельное слово без учёта регистра (lidding == Lidding)
+            score = 30000 + (caseInsensitiveMatches.length * 1000);
+        } else if (text.includes(query)) {
+            // Подстрока с сохранением регистра
+            score = 15000;
+        } else if (t.includes(q)) {
+            // Подстрока без сохранения регистра
+            score = 10000;
+        } else {
+            // Морфология/стемминг от бэкенда Smartcat (lidded, lids, lid)
+            score = 1000;
+            const words = isReverse ? item.targetFoundWords : item.sourceFoundWords;
+            if (Array.isArray(words) && words.length > 0) {
+                const maxLen = Math.max(...words.map(w => w.length || 0));
+                score += maxLen * 50;
+            }
+        }
+
+        return score;
+    }
+
+    // Подсветка точного слова целиком, а не обрезанных 3 букв корня
+    function fixHighlighting(item, query, isReverse) {
+        const textField = isReverse ? 'targetText' : 'sourceText';
+        const wordsField = isReverse ? 'targetFoundWords' : 'sourceFoundWords';
+        const text = item[textField];
+        if (!text || !query) return;
+
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        let regex = new RegExp(`(?<=^|[^\\p{L}\\p{N}_])${escaped}(?=[^\\p{L}\\p{N}_]|$)`, 'gui');
+        let matches = [...text.matchAll(regex)];
+
+        if (matches.length === 0) {
+            regex = new RegExp(escaped, 'gui');
+            matches = [...text.matchAll(regex)];
+        }
+
+        if (matches.length > 0) {
+            item[wordsField] = matches.map(m => ({
+                begin: m.index,
+                end: m.index + m[0].length,
+                length: m[0].length
+            }));
+        }
+    }
+
+    // Сборка заголовков авторизации для безопасной фоновой пагинации
+    function extractHeaders(resource, config, customHeaders) {
+        const headers = new Headers();
+        if (customHeaders && typeof customHeaders === 'object') {
+            for (const [k, v] of Object.entries(customHeaders)) {
+                headers.set(k, v);
+            }
+        }
+        if (resource instanceof Request && resource.headers) {
+            resource.headers.forEach((val, key) => headers.set(key, val));
+        }
+        if (config && config.headers) {
+            if (config.headers instanceof Headers) {
+                config.headers.forEach((val, key) => headers.set(key, val));
+            } else if (Array.isArray(config.headers)) {
+                config.headers.forEach(([k, v]) => headers.set(k, v));
+            } else if (typeof config.headers === 'object') {
+                for (const [k, v] of Object.entries(config.headers)) {
+                    headers.set(k, v);
+                }
+            }
+        }
+        return headers;
+    }
+
+    // Параллельная докачка оставшихся страниц
+    async function fetchRemainingPages(baseParsedUrl, total, limit, headers) {
+        const starts = [];
+        const maxToFetch = Math.min(total, CONFIG.MAX_ITEMS);
+
+        for (let s = limit; s < maxToFetch; s += limit) {
+            starts.push(s);
+        }
+
+        log(`Всего совпадений: ${total}. Догружаем ${starts.length} страниц(ы) пачками по ${CONFIG.BATCH_SIZE}...`);
+        const allItems = [];
+
+        for (let i = 0; i < starts.length; i += CONFIG.BATCH_SIZE) {
+            const batch = starts.slice(i, i + CONFIG.BATCH_SIZE);
+            const promises = batch.map(async (startVal) => {
+                const pageUrl = new URL(baseParsedUrl.toString());
+                pageUrl.searchParams.set('start', startVal.toString());
+                pageUrl.searchParams.set('__enhanced', '1');
+
+                try {
+                    const res = await originalFetch(pageUrl.toString(), {
+                        method: 'GET',
+                        headers: headers,
+                        credentials: 'include'
+                    });
+                    if (!res.ok) return [];
+                    const data = await res.json();
+                    return data.items || [];
+                } catch (e) {
+                    console.error('[Smartcat Enhancer] Ошибка загрузки смещения start=' + startVal, e);
+                    return [];
+                }
+            });
+
+            const results = await Promise.all(promises);
+            for (const batchItems of results) {
+                allItems.push(...batchItems);
+            }
+        }
+
+        return allItems;
+    }
+
+    // Главный процессор конкордансного поиска
+    async function processConcordance(urlStr, initialData, headers) {
+        const parsedUrl = new URL(urlStr, win.location.origin);
+        const rawSearch = parsedUrl.searchParams.get('searchText') || '';
+        const cleanQuery = sanitizeQuery(rawSearch);
+        const isReverse = parsedUrl.searchParams.get('isReverse') === 'true';
+        const isCaseSensitive = parsedUrl.searchParams.get('isCaseSensitive') === 'true';
+        const limit = parseInt(parsedUrl.searchParams.get('limit') || '100', 10);
+        const total = initialData.total || 0;
+
+        let allItems = [...(initialData.items || [])];
+
+        if (total > allItems.length) {
+            const extra = await fetchRemainingPages(parsedUrl, total, limit, headers);
+            allItems.push(...extra);
+        }
+
+        log(`Сортировка ${allItems.length} результатов по близости к "${cleanQuery}"...`);
+
+        for (const item of allItems) {
+            item.__score = calculateRelevance(item, cleanQuery, isReverse, isCaseSensitive);
+            fixHighlighting(item, cleanQuery, isReverse);
+        }
+
+        // Стабильная сортировка по релевантности
+        allItems.sort((a, b) => b.__score - a.__score);
+
+        const cacheKey = `${parsedUrl.searchParams.get('documentId')}_${cleanQuery}_${isReverse}_${isCaseSensitive}`;
+        searchCache.set(cacheKey, {
+            total: allItems.length,
+            items: allItems
+        });
+
+        return {
+            total: allItems.length,
+            items: allItems
+        };
+    }
+
+    // --- Перехват fetch ---
+    win.fetch = async function (resource, config) {
+        const urlStr = extractUrlString(resource);
+
+        if (isConcordanceUrl(urlStr)) {
+            log('Перехвачен запрос (fetch):', urlStr);
+            const parsedUrl = new URL(urlStr, win.location.origin);
+            const start = parseInt(parsedUrl.searchParams.get('start') || '0', 10);
+            const limit = parseInt(parsedUrl.searchParams.get('limit') || '100', 10);
+            const cleanQuery = sanitizeQuery(parsedUrl.searchParams.get('searchText') || '');
+            const isReverse = parsedUrl.searchParams.get('isReverse') === 'true';
+            const isCaseSensitive = parsedUrl.searchParams.get('isCaseSensitive') === 'true';
+            const cacheKey = `${parsedUrl.searchParams.get('documentId')}_${cleanQuery}_${isReverse}_${isCaseSensitive}`;
+
+            // Если Smartcat пагинирует повторно — отдаем из отсортированного кэша
+            if (start > 0 && searchCache.has(cacheKey)) {
+                const cached = searchCache.get(cacheKey);
+                const pageSlice = cached.items.slice(start, start + limit);
+                return new Response(JSON.stringify({ total: cached.total, items: pageSlice }), {
+                    status: 200,
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' }
+                });
+            }
+
+            try {
+                // Выполняем оригинальный первый запрос со всеми его токенами
+                const initialRes = await originalFetch.apply(this, arguments);
+                if (!initialRes.ok) return initialRes;
+
+                const initialData = await initialRes.json();
+                const headers = extractHeaders(resource, config);
+                const finalData = await processConcordance(urlStr, initialData, headers);
+
+                return new Response(JSON.stringify(finalData), {
+                    status: 200,
+                    statusText: 'OK',
+                    headers: { 'Content-Type': 'application/json; charset=utf-8' }
+                });
+            } catch (err) {
+                console.error('[Smartcat Enhancer] Сбой в обработке fetch:', err);
+            }
+        }
+
+        return originalFetch.apply(this, arguments);
+    };
+
+    // --- Перехват XMLHttpRequest ---
+    win.XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+        this._smartcatUrl = extractUrlString(url);
+        this._smartcatMethod = method;
+        this._smartcatHeaders = {};
+        return origOpen.apply(this, [method, url, ...rest]);
+    };
+
+    win.XMLHttpRequest.prototype.setRequestHeader = function (header, value) {
+        if (!this._smartcatHeaders) this._smartcatHeaders = {};
+        this._smartcatHeaders[header] = value;
+        return origSetRequestHeader.apply(this, arguments);
+    };
+
+    win.XMLHttpRequest.prototype.send = function (body) {
+        const urlStr = this._smartcatUrl;
+
+        if (isConcordanceUrl(urlStr)) {
+            log('Перехвачен запрос (XHR):', urlStr);
+            const target = this;
+            const parsedUrl = new URL(urlStr, win.location.origin);
+            const start = parseInt(parsedUrl.searchParams.get('start') || '0', 10);
+            const limit = parseInt(parsedUrl.searchParams.get('limit') || '100', 10);
+            const cleanQuery = sanitizeQuery(parsedUrl.searchParams.get('searchText') || '');
+            const isReverse = parsedUrl.searchParams.get('isReverse') === 'true';
+            const isCaseSensitive = parsedUrl.searchParams.get('isCaseSensitive') === 'true';
+            const cacheKey = `${parsedUrl.searchParams.get('documentId')}_${cleanQuery}_${isReverse}_${isCaseSensitive}`;
+
+            if (start > 0 && searchCache.has(cacheKey)) {
+                const cached = searchCache.get(cacheKey);
+                const pageSlice = cached.items.slice(start, start + limit);
+                fulfillXhr(target, { total: cached.total, items: pageSlice });
+                return;
+            }
+
+            const headers = extractHeaders(null, null, target._smartcatHeaders);
+            const firstPageUrl = new URL(urlStr, win.location.origin);
+            firstPageUrl.searchParams.set('__enhanced', '1');
+
+            originalFetch(firstPageUrl.toString(), {
+                method: target._smartcatMethod || 'GET',
+                headers: headers,
+                credentials: 'include'
+            })
+            .then(res => res.json())
+            .then(initialData => processConcordance(urlStr, initialData, headers))
+            .then(finalData => fulfillXhr(target, finalData))
+            .catch(err => {
+                console.error('[Smartcat Enhancer] Сбой в обработке XHR, откат на оригинальный запрос:', err);
+                origSend.call(target, body);
+            });
+
+            return;
+        }
+
+        return origSend.call(this, body);
+    };
+
+    // Эмуляция ответа XHR со всеми методами, необходимыми Axios
+    function fulfillXhr(target, data) {
+        const responseText = JSON.stringify(data);
+
+        Object.defineProperties(target, {
+            readyState: { value: 4, configurable: true },
+            status: { value: 200, configurable: true },
+            statusText: { value: 'OK', configurable: true },
+            responseText: { value: responseText, configurable: true },
+            response: {
+                get: () => target.responseType === 'json' ? data : responseText,
+                configurable: true
+            }
+        });
+
+        target.getAllResponseHeaders = function () {
+            return 'content-type: application/json; charset=utf-8\r\n';
+        };
+
+        target.getResponseHeader = function (header) {
+            if (header && header.toLowerCase() === 'content-type') {
+                return 'application/json; charset=utf-8';
+            }
+            return null;
+        };
+
+        target.dispatchEvent(new Event('readystatechange'));
+        target.dispatchEvent(new ProgressEvent('load'));
+        target.dispatchEvent(new ProgressEvent('loadend'));
+
+        if (typeof target.onreadystatechange === 'function') target.onreadystatechange(new Event('readystatechange'));
+        if (typeof target.onload === 'function') target.onload(new ProgressEvent('load'));
+        if (typeof target.onloadend === 'function') target.onloadend(new ProgressEvent('loadend'));
+    }
+
+    log('Активен. Стили применены, перехватчик конкорданса запущен.');
 
 })();
