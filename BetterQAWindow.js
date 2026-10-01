@@ -2,6 +2,290 @@
 (function() {
     'use strict';
 
+let currentSortMode = 'count'; // 'count', 'alpha', 'segment'
+    let isProcessing = false;
+    let timeoutId = null;
+
+    // Новая функция для анализа и подсветки потерянных чисел с учетом их количества (повторов)
+    function highlightMissingNumbers(textRow) {
+        if (!textRow || textRow.dataset.numbersHighlighted === "true") return;
+
+        const sourceDiv = textRow.querySelector('div[data-bind="text: sourceText"]');
+        const targetDiv = textRow.querySelector('div[data-bind="text: targetText"]');
+
+        if (!sourceDiv || !targetDiv) return;
+
+        const sourceText = sourceDiv.textContent;
+        const targetText = targetDiv.textContent;
+
+        const sourceNums = sourceText.match(/\d+/g) || [];
+        const targetNums = targetText.match(/\d+/g) || [];
+
+        // Считаем количество вхождений каждого числа в переводе
+        const targetCounts = {};
+        targetNums.forEach(n => {
+            targetCounts[n] = (targetCounts[n] || 0) + 1;
+        });
+
+        // Ищем числа, которых в оригинале больше, чем в переводе (с учетом повторов)
+        const missingNums = [];
+        sourceNums.forEach(n => {
+            if (targetCounts[n] > 0) {
+                targetCounts[n]--; // Нашли совпадение — "вычеркиваем" одну копию из перевода
+            } else {
+                missingNums.push(n); // Совпадений больше нет — число потеряно
+            }
+        });
+
+        if (missingNums.length > 0) {
+            // Оставляем только уникальные значения для замены, чтобы не делать replace дважды для одного числа
+            const uniqueMissing = [...new Set(missingNums)];
+
+            let newHtml = sourceText
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+            uniqueMissing.forEach(num => {
+                // Ищем число строго по краям (без примыкающих цифр спереди и сзади)
+                const regex = new RegExp(`(?<!\\d)${num}(?!\\d)`, 'g');
+                newHtml = newHtml.replace(regex, `<span style="color: red; font-weight: bold;">${num}</span>`);
+            });
+
+            sourceDiv.innerHTML = newHtml;
+        }
+
+        textRow.dataset.numbersHighlighted = "true";
+    }
+
+    function reorderAndGroupQaErrors() {
+        if (isProcessing) return;
+
+        const tables = document.querySelectorAll('.l-qa-check-report__table-scroll');
+
+        tables.forEach((table) => {
+            const tbody = table.querySelector('tbody');
+            if (!tbody) return;
+
+            const segmentRows = tbody.querySelectorAll('.l-qa-check-report__go-segment');
+            if (segmentRows.length === 0) return;
+
+            const stateKey = `${segmentRows.length}_${currentSortMode}`;
+            if (tbody.dataset.processedState === stateKey) return;
+
+            // Блокируем повторные вызовы
+            isProcessing = true;
+
+            // 1. Привязываем/обновляем кнопку в заголовке
+            const subcatTr = table.closest('tr')?.previousElementSibling;
+            if (subcatTr) {
+                const titleCell = subcatTr.querySelector('.l-corpr__td_openable .g-wrapper .l-corpr__threeDots');
+                if (titleCell) {
+                    titleCell.querySelectorAll('.qa-sort-btn').forEach(b => b.remove());
+                    addSortButton(titleCell, tbody);
+                }
+            }
+
+            // Проверяем, относится ли эта таблица к категории дат и чисел
+            let isDatesAndNumbers = false;
+            if (subcatTr) {
+                const descSpan = subcatTr.querySelector('span[data-bind="text: description"]');
+                if (descSpan && descSpan.textContent.toLowerCase().includes('dates and numbers')) {
+                    isDatesAndNumbers = true;
+                }
+            }
+
+            tbody.querySelectorAll('.qa-sort-btn').forEach(b => b.remove());
+
+            const rows = Array.from(tbody.children);
+            const groupsMap = new Map();
+
+            // 2. Собираем группы по уникальным ошибкам
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                if (!row.classList.contains('l-qa-check-report__go-segment')) continue;
+
+                const detailEl = row.querySelector('.l-qa-check-report__double-indent span[data-bind*="text: $data"]');
+                const errorKey = detailEl ? detailEl.textContent.trim().toLowerCase() : '__unknown__';
+
+                const textRow = (rows[i + 1] && rows[i + 1].querySelector('.l-qa-check-report__segment-text')) ? rows[i + 1] : null;
+
+                const segNumEl = row.querySelector('.l-qa-check-report__segment-number p');
+                const segNum = segNumEl ? parseInt(segNumEl.textContent.trim(), 10) || 0 : 0;
+
+                if (!groupsMap.has(errorKey)) {
+                    groupsMap.set(errorKey, {
+                        key: errorKey,
+                        items: [],
+                        firstSegNum: segNum
+                    });
+                }
+                groupsMap.get(errorKey).items.push({ headRow: row, textRow: textRow, segNum: segNum });
+            }
+
+            const groupsArray = Array.from(groupsMap.values());
+
+            // 3. Сортируем группы
+            groupsArray.sort((a, b) => {
+                if (currentSortMode === 'count') {
+                    if (b.items.length !== a.items.length) {
+                        return b.items.length - a.items.length;
+                    }
+                    return a.key.localeCompare(b.key, 'ru');
+                } else if (currentSortMode === 'alpha') {
+                    return a.key.localeCompare(b.key, 'ru');
+                } else {
+                    return a.firstSegNum - b.firstSegNum;
+                }
+            });
+
+            // 4. Безопасная сборка в виртуальный DocumentFragment
+            const fragment = document.createDocumentFragment();
+
+            groupsArray.forEach((group) => {
+                const items = group.items;
+                const primary = items[0];
+
+                const targetCell = primary.headRow.querySelector('.l-qa-check-report__double-indent');
+
+                // Настройка бейджа с выравниванием float: right
+                let badge = primary.headRow.querySelector('.qa-count-badge');
+                if (items.length > 1 && group.key !== '__unknown__') {
+                    if (!badge) {
+                        badge = document.createElement('b');
+                        badge.className = 'qa-count-badge';
+                        badge.style.cssText = 'color: #d9534f; font-weight: bold; float: right; background: #fee; padding: 1px 6px; border-radius: 8px; font-size: 11px; white-space: nowrap; font-family: sans-serif; margin-right: 15px;';
+                        if (targetCell) targetCell.appendChild(badge);
+                    }
+                    badge.textContent = `× ${items.length}`;
+                } else if (badge) {
+                    badge.remove();
+                }
+
+                primary.headRow.style.backgroundColor = items.length > 1 ? '#f0f5ff' : '';
+                primary.headRow.style.cursor = items.length > 1 ? 'pointer' : 'default';
+
+                // Подсветка чисел для главного сегмента группы
+                if (isDatesAndNumbers && primary.textRow) {
+                    highlightMissingNumbers(primary.textRow);
+                }
+
+                fragment.appendChild(primary.headRow);
+                if (primary.textRow) fragment.appendChild(primary.textRow);
+
+                const isExpanded = primary.headRow.dataset.isExpanded === "true";
+
+                for (let i = 1; i < items.length; i++) {
+                    const item = items[i];
+
+                    // Подсветка чисел для скрытых дублей
+                    if (isDatesAndNumbers && item.textRow) {
+                        highlightMissingNumbers(item.textRow);
+                    }
+
+                    fragment.appendChild(item.headRow);
+                    if (item.textRow) fragment.appendChild(item.textRow);
+
+                    if (isExpanded) {
+                        item.headRow.style.removeProperty('display');
+                    } else {
+                        item.headRow.style.setProperty('display', 'none', 'important');
+                        if (item.textRow) {
+                            item.textRow.style.setProperty('display', 'none', 'important');
+                        }
+                    }
+                }
+
+                if (items.length > 1 && !primary.headRow.dataset.hasGroupToggle) {
+                    primary.headRow.dataset.hasGroupToggle = "true";
+
+                    primary.headRow.addEventListener('click', (e) => {
+                        if (e.target.closest('a.g-link')) return;
+
+                        const currentExpanded = primary.headRow.dataset.isExpanded === "true";
+                        const nextExpanded = !currentExpanded;
+                        primary.headRow.dataset.isExpanded = String(nextExpanded);
+
+                        for (let i = 1; i < items.length; i++) {
+                            if (nextExpanded) {
+                                items[i].headRow.style.removeProperty('display');
+                            } else {
+                                items[i].headRow.style.setProperty('display', 'none', 'important');
+                                if (items[i].textRow) {
+                                    items[i].textRow.style.setProperty('display', 'none', 'important');
+                                }
+                            }
+                        }
+                    }, true);
+                }
+            });
+
+            // Отключаем наблюдатель перед вставкой элементов
+            observer.disconnect();
+
+            tbody.appendChild(fragment);
+            tbody.dataset.processedState = stateKey;
+
+            // Включаем обратно после отрисовки
+            setTimeout(() => {
+                isProcessing = false;
+                observer.observe(document.body, { childList: true, subtree: true });
+            }, 100);
+        });
+    }
+
+    function addSortButton(headerElement, tbody) {
+        if (headerElement.querySelector('.qa-sort-btn')) return;
+
+        const btn = document.createElement('button');
+        btn.className = 'qa-sort-btn';
+        btn.style.cssText = 'margin-left: 12px; padding: 2px 8px; font-size: 11px; font-weight: bold; color: #333; background-color: #fcfcfc; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; vertical-align: middle; line-height: 1.2;';
+
+        updateButtonText(btn);
+
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            if (currentSortMode === 'count') currentSortMode = 'alpha';
+            else if (currentSortMode === 'alpha') currentSortMode = 'segment';
+            else currentSortMode = 'count';
+
+            updateButtonText(btn);
+
+            tbody.dataset.processedState = '';
+            scheduleReorder();
+        });
+
+        headerElement.appendChild(btn);
+    }
+
+    function updateButtonText(btn) {
+        if (currentSortMode === 'count') {
+            btn.textContent = 'Сортировка: x99-x1';
+            btn.title = 'По количеству ошибок (клик — по алфавиту A-Z)';
+        } else if (currentSortMode === 'alpha') {
+            btn.textContent = 'Сортировка: A-Z';
+            btn.title = 'По алфавиту (клик — по порядку сегментов 1-100)';
+        } else {
+            btn.textContent = 'Сортировка: 1-100';
+            btn.title = 'По порядку сегментов (клик — по количеству ошибок x99-x1)';
+        }
+    }
+
+    function scheduleReorder() {
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+            reorderAndGroupQaErrors();
+        }, 150);
+    }
+
+    const observer = new MutationObserver(() => {
+        scheduleReorder();
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+/*    
     let currentSortMode = 'count'; // 'count', 'alpha', 'segment'
     let isProcessing = false;
     let timeoutId = null;
@@ -213,7 +497,7 @@
 
     observer.observe(document.body, { childList: true, subtree: true });
 
-
+*/
     function addGlobalStyle(css) {
     var head, style;
     head = document.getElementsByTagName('head')[0];
