@@ -235,9 +235,10 @@
     const win = typeof unsafeWindow !== 'undefined' ? unsafeWindow : window;
 
     const CONFIG = {
-        MAX_ITEMS: 3000,    // Максимум загружаемых результатов для защиты от зависания
-        BATCH_SIZE: 5,      // Число параллельных запросов пагинации
-        LOGS: true          // Вывод отладочной информации в Console DevTools
+        MAX_ITEMS: 3000,    // Максимум загружаемых результатов из API для поиска совпадений
+        TOP_ITEMS: 100,     // Сколько лучших результатов оставить после сортировки
+        BATCH_SIZE: 5,      // Число параллельных запросов
+        LOGS: true
     };
 
     const originalFetch = win.fetch.bind(win);
@@ -274,7 +275,7 @@
         return rawText.replace(/[\u200B-\u200D\uFEFF]/g, '').trim();
     }
 
-    // Расчёт релевантности для сортировки (без штрафа за длину сегмента)
+    // Скоринг без штрафа за длину сегмента
     function calculateRelevance(item, query, isReverse, isCaseSensitive) {
         const text = (isReverse ? item.targetText : item.sourceText) || '';
         if (!text || !query) return 0;
@@ -286,7 +287,6 @@
         if (t.trim() === q.trim()) return 100000;
 
         const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        // Границы слов с поддержкой Unicode (кириллица, латиница и др.)
         const exactWordRegex = new RegExp(`(?<=^|[^\\p{L}\\p{N}_])${escaped}(?=[^\\p{L}\\p{N}_]|$)`, 'gu');
         const caseInsensitiveWordRegex = new RegExp(`(?<=^|[^\\p{L}\\p{N}_])${escaped}(?=[^\\p{L}\\p{N}_]|$)`, 'gui');
 
@@ -296,19 +296,14 @@
         let score = 0;
 
         if (exactMatches && exactMatches.length > 0) {
-            // Точное отдельное слово с сохранением регистра (Lidding == Lidding)
             score = 50000 + (exactMatches.length * 1000);
         } else if (caseInsensitiveMatches && caseInsensitiveMatches.length > 0) {
-            // Точное отдельное слово без учёта регистра (lidding == Lidding)
             score = 30000 + (caseInsensitiveMatches.length * 1000);
         } else if (text.includes(query)) {
-            // Подстрока с сохранением регистра
             score = 15000;
         } else if (t.includes(q)) {
-            // Подстрока без сохранения регистра
             score = 10000;
         } else {
-            // Морфология/стемминг от бэкенда Smartcat (lidded, lids, lid)
             score = 1000;
             const words = isReverse ? item.targetFoundWords : item.sourceFoundWords;
             if (Array.isArray(words) && words.length > 0) {
@@ -320,7 +315,7 @@
         return score;
     }
 
-    // Подсветка точного слова целиком, а не обрезанных 3 букв корня
+    // Подсветка точного слова целиком
     function fixHighlighting(item, query, isReverse) {
         const textField = isReverse ? 'targetText' : 'sourceText';
         const wordsField = isReverse ? 'targetFoundWords' : 'sourceFoundWords';
@@ -345,7 +340,7 @@
         }
     }
 
-    // Сборка заголовков авторизации для безопасной фоновой пагинации
+    // Сборка заголовков для безопасной фоновой докачки
     function extractHeaders(resource, config, customHeaders) {
         const headers = new Headers();
         if (customHeaders && typeof customHeaders === 'object') {
@@ -370,7 +365,7 @@
         return headers;
     }
 
-    // Параллельная докачка оставшихся страниц
+    // Докачка остальных страниц
     async function fetchRemainingPages(baseParsedUrl, total, limit, headers) {
         const starts = [];
         const maxToFetch = Math.min(total, CONFIG.MAX_ITEMS);
@@ -413,7 +408,7 @@
         return allItems;
     }
 
-    // Главный процессор конкордансного поиска
+    // Главный пайплайн обработки
     async function processConcordance(urlStr, initialData, headers) {
         const parsedUrl = new URL(urlStr, win.location.origin);
         const rawSearch = parsedUrl.searchParams.get('searchText') || '';
@@ -432,13 +427,23 @@
 
         log(`Сортировка ${allItems.length} результатов по близости к "${cleanQuery}"...`);
 
+        // Считаем релевантность
         for (const item of allItems) {
             item.__score = calculateRelevance(item, cleanQuery, isReverse, isCaseSensitive);
-            fixHighlighting(item, cleanQuery, isReverse);
         }
 
-        // Стабильная сортировка по релевантности
         allItems.sort((a, b) => b.__score - a.__score);
+
+        // Отсекаем все, кроме заданного топа
+        if (allItems.length > CONFIG.TOP_ITEMS) {
+            allItems = allItems.slice(0, CONFIG.TOP_ITEMS);
+            log(`Массив обрезан до лучших ${CONFIG.TOP_ITEMS} результатов, остальное освобождено из памяти.`);
+        }
+
+        // Подсвечиваем только оставшиеся топ-элементы
+        for (const item of allItems) {
+            fixHighlighting(item, cleanQuery, isReverse);
+        }
 
         const cacheKey = `${parsedUrl.searchParams.get('documentId')}_${cleanQuery}_${isReverse}_${isCaseSensitive}`;
         searchCache.set(cacheKey, {
@@ -466,7 +471,6 @@
             const isCaseSensitive = parsedUrl.searchParams.get('isCaseSensitive') === 'true';
             const cacheKey = `${parsedUrl.searchParams.get('documentId')}_${cleanQuery}_${isReverse}_${isCaseSensitive}`;
 
-            // Если Smartcat пагинирует повторно — отдаем из отсортированного кэша
             if (start > 0 && searchCache.has(cacheKey)) {
                 const cached = searchCache.get(cacheKey);
                 const pageSlice = cached.items.slice(start, start + limit);
@@ -477,7 +481,6 @@
             }
 
             try {
-                // Выполняем оригинальный первый запрос со всеми его токенами
                 const initialRes = await originalFetch.apply(this, arguments);
                 if (!initialRes.ok) return initialRes;
 
@@ -556,7 +559,6 @@
         return origSend.call(this, body);
     };
 
-    // Эмуляция ответа XHR со всеми методами, необходимыми Axios
     function fulfillXhr(target, data) {
         const responseText = JSON.stringify(data);
 
@@ -591,6 +593,6 @@
         if (typeof target.onloadend === 'function') target.onloadend(new ProgressEvent('loadend'));
     }
 
-    log('Активен. Стили применены, перехватчик конкорданса запущен.');
+    log('Активен. Готов к перехвату конкорданса.');
 
 })();
